@@ -51,8 +51,16 @@ export type Options = {
 }
 
 export function defaultWrapChildren(children: any, transitionState: TransitionState): React.Element<any> {
-  const {prefixer} = this.props
+  const {prefixer, fillParent} = this.props
   const style: Object = {transitionProperty: 'opacity'}
+  if (fillParent) {
+    style.position = 'absolute'
+    style.top = 0
+    style.left = 0
+    style.right = 0
+    style.bottom = 0
+    style.overflow = 'auto'
+  }
   switch (transitionState) {
     case 'out':
     case 'entering':
@@ -112,14 +120,14 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
 
     componentDidUpdate() {
       const {transitionState, height, transitioningHeight} = this.state
-      const {animateHeight} = this.props
+      const {animateHeight, fillParent} = this.props
       if (transitionState === 'in' && this.props.children !== this.state.children) {
         const newState: $Shape<State> = {}
         newState.children = this.props.children
         newState.transitionState = 'leaving'
         newState.wrappedChildren = this.wrapChildren(this.state.children, 'leaving')
         this.setTimeout('fadeOut', this.onTransitionEnd, this.props.fadeOutTransitionDuration)
-        if (animateHeight) {
+        if (animateHeight && !fillParent) {
           if (height === undefined) newState.height = measureHeight(this.wrappedChildrenRef)
           else if (!transitioningHeight) newState.transitioningHeight = true
         }
@@ -130,7 +138,7 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
           newState.transitionState = 'entering'
           newState.wrappedChildren = this.wrapChildren(this.props.children, 'entering')
           this.setTimeout('fadeIn', this.onTransitionEnd, this.props.fadeInTransitionDuration)
-          if (animateHeight) {
+          if (animateHeight && !fillParent) {
             newState.height = measureHeight(this.wrappedChildrenRef)
             this.setTimeout('height', this.onHeightTransitionEnd, this.props.heightTransitionDuration)
           }
@@ -174,13 +182,20 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
 
     render(): React.Element<any> {
       const {height, transitioningHeight, wrappedChildren} = this.state
-      const {className, prefixer} = this.props
+      const {className, prefixer, fillParent} = this.props
       const style = {...this.props.style}
       if (height != null) style.height = height
       if (transitioningHeight) {
         style.transitionProperty = 'height'
         style.transitionDuration = this.props.heightTransitionDuration + 'ms'
         style.transitionTimingFunction = this.props.heightTransitionTimingFunction
+      }
+      if (fillParent) {
+        style.position = 'absolute'
+        style.top = 0
+        style.left = 0
+        style.right = 0
+        style.bottom = 0
       }
       return (
         <div className={className} style={prefixer.prefix(style)}>
@@ -192,5 +207,4 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
 }
 
 export default createFader()
-
 
