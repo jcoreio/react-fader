@@ -14,59 +14,35 @@ describe('Fader', () => {
   })
 
   it('single transition works', () => {
-    const renderPage = ({index, key, style, className, ref}) => (
-      <div
-          key={key}
-          ref={ref}
-          className={className}
-          style={{
-            ...style,
-            height: (index + 1) * 100,
-          }}
-      >
-        Child {index}
-      </div>
-    )
-
     const comp = mount(
-      <Fader numPages={3} renderPage={renderPage} activePage={0} />
+      <Fader>
+        <h3>Foo</h3>
+      </Fader>
     )
 
-    expect(comp.text()).to.equal('Child 0')
+    expect(comp.text()).to.equal('Foo')
 
-    comp.setProps({activePage: 1})
+    comp.setProps({children: <div><h3>Bar</h3></div>})
 
-    expect(comp.text()).to.equal('Child 0Child 1Child 2')
+    expect(comp.text()).to.equal('Foo')
     clock.tick(1000)
-    expect(comp.text()).to.equal('Child 1')
+    expect(comp.text()).to.equal('Bar')
   })
   it('multiple transitions work', () => {
-    const renderPage = ({index, key, style, className, ref}) => (
-      <div
-          key={key}
-          ref={ref}
-          className={className}
-          style={{
-            ...style,
-            height: index * 100,
-          }}
-      >
-        Child {index}
-      </div>
-    )
-
     const comp = mount(
-      <Fader numPages={3} renderPage={renderPage} activePage={0} />
+      <Fader>
+        <h3>Foo</h3>
+      </Fader>
     )
 
-    expect(comp.text()).to.equal('Child 0')
+    expect(comp.text()).to.equal('Foo')
 
-    comp.setProps({activePage: 1})
-    expect(comp.text()).to.equal('Child 0Child 1Child 2')
-    clock.tick(200)
-    comp.setProps({activePage: 2})
-    expect(comp.text()).to.equal('Child 0Child 1Child 2')
-    clock.tick(1000)
-    expect(comp.text()).to.equal('Child 2')
+    comp.setProps({children: <div><h3>Bar</h3></div>})
+
+    expect(comp.text()).to.equal('Foo')
+    clock.tick(100)
+    comp.setProps({children: <div><h3>Baz</h3></div>})
+    clock.tick(400)
+    expect(comp.text()).to.equal('Baz')
   })
 })

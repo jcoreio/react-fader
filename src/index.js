@@ -62,24 +62,24 @@ export function defaultWrapChildren(children: any, transitionState: TransitionSt
     style.overflow = 'auto'
   }
   switch (transitionState) {
-    case 'out':
-    case 'entering':
-      style.opacity = transitionState === 'entering' ? 1 : 0
-      style.transitionDuration = this.props.fadeInTransitionTimingFunction + 'ms'
-      style.transitionTimingFunction = this.props.fadeInTransitionTimingFunction
-      break
-    case 'in':
-    case 'leaving':
-      style.opacity = transitionState === 'in' ? 1 : 0
-      style.transitionDuration = this.props.fadeOutTransitionDuration + 'ms'
-      style.transitionTimingFunction = this.props.fadeOutTransitionTimingFunction
-      break
+  case 'out':
+  case 'entering':
+    style.opacity = transitionState === 'entering' ? 1 : 0
+    style.transitionDuration = this.props.fadeInTransitionTimingFunction + 'ms'
+    style.transitionTimingFunction = this.props.fadeInTransitionTimingFunction
+    break
+  case 'in':
+  case 'leaving':
+    style.opacity = transitionState === 'in' ? 1 : 0
+    style.transitionDuration = this.props.fadeOutTransitionDuration + 'ms'
+    style.transitionTimingFunction = this.props.fadeOutTransitionTimingFunction
+    break
   }
   return (
     <div
-      ref={c => this.wrappedChildrenRef = c}
-      data-transition-state={transitionState}
-      style={prefixer.prefix(style)}
+        ref={c => this.wrappedChildrenRef = c}
+        data-transition-state={transitionState}
+        style={prefixer.prefix(style)}
     >
       {children}
     </div>
