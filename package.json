@@ -1,7 +1,7 @@
 {
   "name": "react-fader",
   "version": "0.0.0-development",
-  "description": "animates horizontal slide transitions between steps of a wizard or levels of a drilldown",
+  "description": "component that fades out old children, then fades in new children when its children change",
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint src test stories",
@@ -45,9 +45,10 @@
     "url": "https://github.com/jcoreio/react-fader.git"
   },
   "keywords": [
-    "es2015",
     "react",
-    "skeleton"
+    "animation",
+    "transition",
+    "fade"
   ],
   "author": "Andy Edwards",
   "license": "MIT",
@@ -111,5 +112,8 @@
     "get-node-dimensions": "^1.2.0",
     "inline-style-prefixer": "^3.0.6",
     "prop-types": "^15.0.0"
+  },
+  "optionalDependencies": {
+    "react-transition-context": "^1.0.0-beta9"
   }
 }
