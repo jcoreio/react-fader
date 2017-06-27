@@ -1,7 +1,7 @@
-# react-view-slider
+# react-fader
 
-[![Build Status](https://travis-ci.org/jcoreio/react-view-slider.svg?branch=master)](https://travis-ci.org/jcoreio/react-view-slider)
-[![Coverage Status](https://coveralls.io/repos/github/jcoreio/react-view-slider/badge.svg?branch=master)](https://coveralls.io/github/jcoreio/react-view-slider?branch=master)
+[![Build Status](https://travis-ci.org/jcoreio/react-fader.svg?branch=master)](https://travis-ci.org/jcoreio/react-fader)
+[![Coverage Status](https://coveralls.io/repos/github/jcoreio/react-fader/badge.svg?branch=master)](https://coveralls.io/github/jcoreio/react-fader?branch=master)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
@@ -11,17 +11,17 @@ of a drilldown.
 ## Usage
 
 ```sh
-npm install --save react-view-slider
+npm install --save react-fader
 ```
 
 ```js
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ViewSlider from 'react-view-slider'
+import Fader from 'react-fader'
 
-// make sure to include react-view-slider/lib/react-view-slider.css in the page.
+// make sure to include react-fader/lib/react-fader.css in the page.
 // for instance if you're using webpack:
-import 'react-view-slider/lib/react-view-slider.css'
+import 'react-fader/lib/react-fader.css'
 
 // This function renders the page at the given index.
 // At minimum you should pass the key, ref, style, and className props to the returned element.
@@ -33,11 +33,11 @@ const renderPage = ({index, key, ref, style, className, active, transitionState}
   </div>
 )
 
-// activePage specifies which page should currently be showing.  Whenever you change it, ViewSlider will make the
+// activePage specifies which page should currently be showing.  Whenever you change it, Fader will make the
 // page at the new activePage horizontally slide into view.
 
 ReactDOM.render(
-  <ViewSlider
+  <Fader
       renderPage={renderPage}
       numPages={3}
       activePage={0}
@@ -51,7 +51,7 @@ ReactDOM.render(
 
 ### `renderPage: (props: PageProps) => React.Element<any>` **(required)**
 
-This function renders each page.  `ViewSlider` will call it with the following `props`:
+This function renders each page.  `Fader` will call it with the following `props`:
 * `index: number` - the index of the page (starting at 0)
 * `key: number` - the key you should pass to the returned element
 * `ref: (c: HTMLElement) => any` - the ref you should pass to the returned element
@@ -64,17 +64,17 @@ At minimum you should pass the `key`, `ref`, `style`, and `className` props to t
 
 ### `numPages: number` **(required)**
 
-The number of pages present.  `ViewSlider` will only render all pages when transitioning; when idle, it will
+The number of pages present.  `Fader` will only render all pages when transitioning; when idle, it will
 only render the active page.
 
 ### `activePage: number` **(required)**
 
-The index of the page that should be showing.  Whenever you change this, `ViewSlider` will animate a horizontal slide
+The index of the page that should be showing.  Whenever you change this, `Fader` will animate a horizontal slide
 transition to the page at the new index.
 
 ### `animateHeight: boolean` (default: `true`)
 
-If truthy, `ViewSlider` will animate its height to match the height of the page at `activePage`.
+If truthy, `Fader` will animate its height to match the height of the page at `activePage`.
 
 ### `transitionDuration: number` (default: `500`)
 
@@ -90,7 +90,7 @@ If given, overrides the `inline-style-prefixer` used to autoprefix inline styles
 
 ### `fillParent: boolean` (default: `false`)
 
-If truthy, `ViewSlider` will use absolute positioning on itself and its pages to fill its parent element.
+If truthy, `Fader` will use absolute positioning on itself and its pages to fill its parent element.
 
 ### `className: string`
 
@@ -111,10 +111,10 @@ Extra inline styles to add to the inner "viewport" element.
 ## `withTransitionContext`
 
 ```js
-import ViewSlider from 'react-view-slider/lib/withTransitionContext'
+import Fader from 'react-fader/lib/withTransitionContext'
 ```
 
-This works exactly like `ViewSlider` except that it renders its pages within a `TransitionContext` component from
+This works exactly like `Fader` except that it renders its pages within a `TransitionContext` component from
 `react-transition-context` with the given `transitionState`.  This is useful for doing things like focusing an `<input>`
 element after one of the pages has transitioned in.
 

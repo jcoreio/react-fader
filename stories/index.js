@@ -1,10 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import ViewSlider from '../src'
-import ViewSliderWithTransitionContext from '../src/withTransitionContext'
-import {TransitionListener} from 'react-transition-context'
-import '../src/react-view-slider.sass'
 import Prefixer from 'inline-style-prefixer'
+import {TransitionListener} from 'react-transition-context'
+
+import Fader from '../src'
+import FaderWithTransitionContext from '../src/withTransitionContext'
 
 /* eslint-env browser */
 
@@ -65,46 +65,14 @@ class SmokeTest extends React.Component {
     }
   }
 
-  renderPage = ({index, key, transitionState, className, style, ref}) => {
-    const finalStyle = this.props.margins
-      ? {...smokeTestPages[index], marginTop: 20, marginBottom: 10, paddingTop: 15}
-      : smokeTestPages[index]
-
-    if (this.props.fillParent) {
-      return (
-         <div
-             key={key}
-             data-transition-state={transitionState}
-             className={className}
-             ref={ref}
-             style={style}
-         >
-          <div style={finalStyle}>
-            Child {index}
-          </div>
-        </div>
-      )
-    }
-    return (
-      <div
-          key={key}
-          data-transition-state={transitionState}
-          className={className}
-          ref={ref}
-          style={{...style, ...finalStyle}}
-      >
-        <h3>Child {index}</h3>
-        <input type="text" ref={c => this.inputRefs[index] = c} />
-        {this.props.ViewSlider === ViewSliderWithTransitionContext &&
-          <TransitionListener didComeIn={() => this.pageDidComeIn(index)} />
-        }
-      </div>
-    )
-  }
-
   render(): React.Element<any> {
     const {fillParent} = this.props
-    const SliderComp = this.props.ViewSlider || ViewSlider
+    const {activePage} = this.state
+    const FaderComp = this.props.Fader || Fader
+
+    const pageStyle = this.props.margins
+      ? {...smokeTestPages[activePage], marginTop: 20, paddingTop: 10, paddingBottom: 5}
+      : smokeTestPages[activePage]
 
     return (
       <div style={fillParent ? styles.fillParent.root : {}}>
@@ -114,22 +82,27 @@ class SmokeTest extends React.Component {
           )}
         </div>
         <div style={fillParent ? styles.fillParent.content : {}}>
-          <SliderComp
+          <FaderComp
               fillParent={fillParent}
               animateHeight={Boolean(this.props.animateHeight)}
-              activePage={this.state.activePage}
-              numPages={smokeTestPages.length}
-              renderPage={this.renderPage}
-          />
+          >
+            <div style={pageStyle}>
+              <h3>Page {activePage}</h3>
+              <input type="text" ref={c => this.inputRefs[activePage] = c} />
+              {FaderComp === FaderWithTransitionContext &&
+                <TransitionListener didComeIn={() => this.pageDidComeIn(activePage)} />
+              }
+            </div>
+          </FaderComp>
         </div>
       </div>
     )
   }
 }
 
-storiesOf('react-view-slider', module)
+storiesOf('react-fader', module)
   .add('with animateHeight', () => <SmokeTest animateHeight />)
   .add('without animateHeight', () => <SmokeTest />)
   .add('with fillParent', () => <SmokeTest fillParent />)
   .add('with margins', () => <SmokeTest animateHeight margins />)
-  .add('withTransitionContext', () => <SmokeTest ViewSlider={ViewSliderWithTransitionContext} />)
+  .add('withTransitionContext', () => <SmokeTest Fader={FaderWithTransitionContext} />)

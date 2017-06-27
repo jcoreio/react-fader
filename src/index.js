@@ -2,52 +2,43 @@
 /* eslint-env browser */
 
 import React, {Component} from 'react'
-import classNames from 'class-names'
 import Prefixer from 'inline-style-prefixer'
 import getNodeDimensions from 'get-node-dimensions'
-import range from 'lodash.range'
 
 type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
 
-export type PageProps = {
-  index: number,
-  key: number,
-  active: boolean,
-  transitionState: TransitionState,
-  className: string,
-  style: Object,
-  ref: (element: HTMLElement) => any,
-}
-
 export type DefaultProps = {
-  animateHeight: boolean,
-  transitionDuration: number,
-  transitionTimingFunction: string,
+  fadeInTransitionDuration: number,
+  fadeInTransitionTimingFunction: string,
+  fadeOutTransitionDuration: number,
+  fadeOutTransitionTimingFunction: string,
+  heightTransitionDuration: number,
+  heightTransitionTimingFunction: string,
   prefixer: Prefixer,
   style: Object,
-  viewportStyle: Object,
 }
 
 export type Props = {
-  activePage: number,
-  numPages: number,
-  renderPage: (props: PageProps) => React.Element<any>,
-  animateHeight: boolean,
-  transitionDuration: number,
-  transitionTimingFunction: string,
+  children?: any,
+  animateHeight?: boolean,
+  fadeInTransitionDuration: number,
+  fadeInTransitionTimingFunction: string,
+  fadeOutTransitionDuration: number,
+  fadeOutTransitionTimingFunction: string,
+  heightTransitionDuration: number,
+  heightTransitionTimingFunction: string,
   prefixer: Prefixer,
+  style: Object,
   fillParent?: boolean,
   className?: string,
-  style: Object,
-  viewportClassName?: string,
-  viewportStyle: Object,
 }
 
 export type State = {
+  children: any,
   height: ?number,
-  transitioning: boolean,
-  activePage: number,
-  prevActivePage: ?number,
+  wrappedChildren: React.Element<any>,
+  transitionState: TransitionState,
+  transitioningHeight: boolean,
 }
 
 function measureHeight(node: ?HTMLElement): ?number {
@@ -55,152 +46,151 @@ function measureHeight(node: ?HTMLElement): ?number {
   return getNodeDimensions(node, {margin: true}).height
 }
 
-export default class ViewSlider extends Component<DefaultProps, Props, State> {
-  static defaultProps = {
-    animateHeight: true,
-    transitionDuration: 500,
-    transitionTimingFunction: 'ease',
-    prefixer: new Prefixer(),
-    style: {},
-    viewportStyle: {},
-  }
-  state: State = {
-    height: undefined,
-    transitioning: false,
-    activePage: this.props.activePage,
-    // this is used to determine the correct transitionState for the previous active page.
-    prevActivePage: null,
-  }
-  root: ?HTMLDivElement
-  viewport: ?HTMLDivElement
-  pages: Array<?HTMLElement> = []
-  timeouts: {[name: string]: number} = {}
+export type Options = {
+  wrapChildren?: (children: any, transitionState: TransitionState) => React.Element<any>,
+}
 
-  setTimeout(name: string, callback: () => any, delay: number) {
-    if (this.timeouts[name]) clearTimeout(this.timeouts[name])
-    this.timeouts[name] = setTimeout(callback, delay)
+export function defaultWrapChildren(children: any, transitionState: TransitionState): React.Element<any> {
+  const {prefixer} = this.props
+  const style: Object = {transitionProperty: 'opacity'}
+  switch (transitionState) {
+    case 'out':
+    case 'entering':
+      style.opacity = transitionState === 'entering' ? 1 : 0
+      style.transitionDuration = this.props.fadeInTransitionTimingFunction + 'ms'
+      style.transitionTimingFunction = this.props.fadeInTransitionTimingFunction
+      break
+    case 'in':
+    case 'leaving':
+      style.opacity = transitionState === 'in' ? 1 : 0
+      style.transitionDuration = this.props.fadeOutTransitionDuration + 'ms'
+      style.transitionTimingFunction = this.props.fadeOutTransitionTimingFunction
+      break
   }
+  return (
+    <div
+      ref={c => this.wrappedChildrenRef = c}
+      data-transition-state={transitionState}
+      style={prefixer.prefix(style)}
+    >
+      {children}
+    </div>
+  )
+}
 
-  componentDidUpdate() {
-    const {activePage, transitionDuration} = this.props
-    let newState: ?$Shape<State>
-
-    if (activePage !== this.state.activePage && this.state.height === undefined) {
-      // phase 1: set current height
-      newState = {height: measureHeight(this.pages[this.state.activePage])}
-    } else if (this.state.height !== undefined && !this.state.transitioning) {
-      // phase 2: enable transitions
-      newState = {transitioning: true}
-    } else if (activePage !== this.state.activePage) {
-      // phase 3: change height/activePage
-      newState = {
-        activePage,
-        prevActivePage: this.state.activePage,
-        height: measureHeight(this.pages[activePage]),
-      }
+export function createFader(options: Options = {}): Class<Component<DefaultProps, Props, State>> {
+  return class Fader extends Component<DefaultProps, Props, State> {
+    static defaultProps = {
+      fadeInTransitionDuration: 200,
+      fadeInTransitionTimingFunction: 'linear',
+      fadeOutTransitionDuration: 200,
+      fadeOutTransitionTimingFunction: 'linear',
+      heightTransitionDuration: 200,
+      heightTransitionTimingFunction: 'ease',
+      prefixer: new Prefixer(),
+      style: {},
     }
 
-    const finalNewState = newState
-    if (!finalNewState) return
+    wrappedChildrenRef: ?HTMLElement
+    timeouts: { [name: string]: number } = {}
 
-    this.setState(finalNewState, () => {
-      if (finalNewState.activePage != null) {
-        this.setTimeout('onTransitionEnd', this.onTransitionEnd, transitionDuration)
-      }
-    })
-  }
+    wrapChildren: (children: any, transitionState: TransitionState) => React.Element<any> =
+      (options.wrapChildren || defaultWrapChildren).bind(this)
 
-  onTransitionEnd = (e?: Event) => {
-    // phase 0: unset height and disable transitions
-    this.setState({
+    state: State = {
+      children: this.props.children,
       height: undefined,
-      prevActivePage: null,
-      transitioning: false,
-    })
-  }
-
-  componentWillUnmount() {
-    for (let name in this.timeouts) clearTimeout(this.timeouts[name])
-  }
-
-  getTransitionState: (childIndex: number) => TransitionState = (childIndex: number): TransitionState => {
-    const {activePage, prevActivePage} = this.state
-    if (prevActivePage == null) return childIndex === activePage ? 'in' : 'out'
-    if (childIndex === activePage) return 'entering'
-    if (childIndex === prevActivePage) return 'leaving'
-    return 'out'
-  }
-
-  renderPage: (index: number) => React.Element<any> = (index: number): React.Element<any> => {
-    const {fillParent} = this.props
-    const {activePage, transitioning} = this.state
-    // when not transitioning, render empty placeholder divs before the active page to push it into the right
-    // horizontal position
-    if (!transitioning && activePage !== index) {
-      return <div key={index} className="react-view-slider__page"></div>
-    }
-    return this.props.renderPage({
-      index,
-      key: index,
-      active: index === activePage,
-      className: 'react-view-slider__page',
-      transitionState: this.getTransitionState(index),
-      style: fillParent ? {left: `${index * 100}%`} : {},
-      ref: c => this.pages[index] = c,
-    })
-  }
-
-  render(): React.Element<any> {
-    const {
-      style, className, viewportClassName, viewportStyle, numPages, prefixer, animateHeight, fillParent,
-      transitionDuration, transitionTimingFunction,
-    } = this.props
-    const {activePage, height, transitioning} = this.state
-
-    const finalClassName = classNames(className, 'react-view-slider__root', {
-      'react-view-slider__root--transitioning': transitioning,
-      'react-view-slider__root--fill-parent': fillParent,
-    })
-
-    const finalOuterStyle = {
-      transitionProperty: 'height',
-      transitionDuration: `${transitionDuration}ms`,
-      transitionTimingFunction,
-      ...style,
-    }
-    if (animateHeight && !fillParent && height != null) finalOuterStyle.height = height
-
-    const finalViewportStyle = {
-      transform: `translateX(-${activePage * 100}%)`,
-      ...viewportStyle,
-    }
-    if (transitioning) {
-      finalViewportStyle.transitionProperty = 'transform'
-      finalViewportStyle.transitionDuration = `${transitionDuration}ms`
-      finalViewportStyle.transitionTimingFunction = transitionTimingFunction
+      wrappedChildren: this.wrapChildren(this.props.children, 'in'),
+      transitionState: 'in',
+      transitioningHeight: false,
     }
 
-    // when not transitioning, render empty placeholder divs before the active page to push it into the right
-    // horizontal position
-    const pages = range(transitioning ? numPages : activePage + 1).map(this.renderPage)
+    setTimeout(name: string, callback: () => any, delay: number) {
+      if (this.timeouts[name]) clearTimeout(this.timeouts[name])
+      this.timeouts[name] = setTimeout(callback, delay)
+    }
 
-    return (
-      <div
-          style={prefixer.prefix(finalOuterStyle)}
-          className={finalClassName}
-          ref={c => this.root = c}
-      >
-        <div
-            className={classNames(viewportClassName, 'react-view-slider__track')}
-            style={prefixer.prefix(finalViewportStyle)}
-            ref={c => this.viewport = c}
-            onTransitionEnd={this.onTransitionEnd}
-        >
-          {pages}
+    componentDidUpdate() {
+      const {transitionState, height, transitioningHeight} = this.state
+      const {animateHeight} = this.props
+      if (transitionState === 'in' && this.props.children !== this.state.children) {
+        const newState: $Shape<State> = {}
+        newState.children = this.props.children
+        newState.transitionState = 'leaving'
+        newState.wrappedChildren = this.wrapChildren(this.state.children, 'leaving')
+        this.setTimeout('fadeOut', this.onTransitionEnd, this.props.fadeOutTransitionDuration)
+        if (animateHeight) {
+          if (height === undefined) newState.height = measureHeight(this.wrappedChildrenRef)
+          else if (!transitioningHeight) newState.transitioningHeight = true
+        }
+        this.setState(newState)
+      } else if (transitionState === 'out') {
+        const newState: $Shape<State> = {}
+        if (this.state.children === this.props.children) {
+          newState.transitionState = 'entering'
+          newState.wrappedChildren = this.wrapChildren(this.props.children, 'entering')
+          this.setTimeout('fadeIn', this.onTransitionEnd, this.props.fadeInTransitionDuration)
+          if (animateHeight) {
+            newState.height = measureHeight(this.wrappedChildrenRef)
+            this.setTimeout('height', this.onHeightTransitionEnd, this.props.heightTransitionDuration)
+          }
+        } else {
+          newState.children = this.props.children
+          newState.wrappedChildren = this.wrapChildren(this.props.children, 'out')
+        }
+        this.setState(newState)
+      }
+    }
+
+    onTransitionEnd = (e?: Event) => {
+      const {transitionState} = this.state
+      if (transitionState === 'leaving') {
+        this.setState({
+          transitionState: 'out',
+          wrappedChildren: this.wrapChildren(this.props.children, 'out'),
+        })
+      } else if (transitionState === 'entering') {
+        if (this.props.children === this.state.children) {
+          this.setState({
+            transitionState: 'in',
+            wrappedChildren: this.wrapChildren(this.props.children, 'in'),
+          })
+        } else {
+          this.setState({
+            transitionState: 'leaving',
+            wrappedChildren: this.wrapChildren(this.state.children, 'leaving'),
+          })
+          this.setTimeout('fadeOut', this.onTransitionEnd, this.props.fadeOutTransitionDuration)
+        }
+      }
+    }
+    onHeightTransitionEnd = (e?: Event) => {
+      this.setState({transitioningHeight: false})
+    }
+
+    componentWillUnmount() {
+      for (let name in this.timeouts) clearTimeout(this.timeouts[name])
+    }
+
+    render(): React.Element<any> {
+      const {height, transitioningHeight, wrappedChildren} = this.state
+      const {className, prefixer} = this.props
+      const style = {...this.props.style}
+      if (height != null) style.height = height
+      if (transitioningHeight) {
+        style.transitionProperty = 'height'
+        style.transitionDuration = this.props.heightTransitionDuration + 'ms'
+        style.transitionTimingFunction = this.props.heightTransitionTimingFunction
+      }
+      return (
+        <div className={className} style={prefixer.prefix(style)}>
+          {wrappedChildren}
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
+
+export default createFader()
 
 
