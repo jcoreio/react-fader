@@ -1,8 +1,8 @@
 {
   "organization": "jedwards1211",
   "scope": "",
-  "name": "react-library-skeleton",
-  "description": "my personal skeleton for React library NPM packages",
+  "name": "react-karma-library-skeleton",
+  "description": "my personal skeleton for React library NPM packages with Karma tests",
   "author": "Andy Edwards",
   "parse": [
     "TEMPLATE-README.md",
