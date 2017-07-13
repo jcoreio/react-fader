@@ -16,10 +16,12 @@ export type DefaultProps = {
   prefixer: Prefixer,
   style: Object,
   measureHeight: (node: HTMLElement) => number,
+  shouldTransition: (oldChildren: any, newChildren: any) => boolean,
 }
 
 export type Props = {
   innerRef?: (c: ?HTMLSpanElement) => any,
+  shouldTransition: (oldChildren: any, newChildren: any) => boolean,
   children?: any,
   animateHeight?: boolean,
   fadeInTransitionDuration: number,
@@ -94,6 +96,14 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
       prefixer: new Prefixer(),
       style: {},
       measureHeight: (node: HTMLElement) => node.offsetHeight,
+      shouldTransition(oldChildren: any, newChildren: any): boolean {
+        if (oldChildren === newChildren) return false
+        if (React.isValidElement(oldChildren) && React.isValidElement(newChildren) &&
+          oldChildren.key != null && oldChildren.key === newChildren.key) {
+          return false
+        }
+        return true
+      },
     }
 
     measureHeight = (node: ?HTMLElement): ?number => {
@@ -121,8 +131,9 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
 
     componentDidUpdate() {
       const {transitionState, height, transitioningHeight} = this.state
-      const {animateHeight, fillParent} = this.props
-      if (transitionState === 'in' && this.props.children !== this.state.children) {
+      const {animateHeight, fillParent, shouldTransition} = this.props
+
+      if (transitionState === 'in' && shouldTransition(this.state.children, this.props.children)) {
         const newState: $Shape<State> = {}
         newState.children = this.props.children
         newState.transitionState = 'leaving'
@@ -136,23 +147,30 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
         if (!transitioningHeight) this.setState({transitioningHeight: true})
       } else if (transitionState === 'out') {
         const newState: $Shape<State> = {}
-        if (this.state.children === this.props.children) {
+        if (shouldTransition(this.state.children, this.props.children)) {
+          newState.children = this.props.children
+          newState.wrappedChildren = this.wrapChildren(this.props.children, 'out')
+        } else {
           newState.transitionState = 'entering'
+          newState.children = this.props.children
           newState.wrappedChildren = this.wrapChildren(this.props.children, 'entering')
           this.setTimeout('fadeIn', this.onTransitionEnd, this.props.fadeInTransitionDuration)
           if (animateHeight && !fillParent) {
             newState.height = this.measureHeight(this.wrappedChildrenRef)
             this.setTimeout('height', this.onHeightTransitionEnd, this.props.heightTransitionDuration)
           }
-        } else {
-          newState.children = this.props.children
-          newState.wrappedChildren = this.wrapChildren(this.props.children, 'out')
         }
+        this.setState(newState)
+      } else if (this.state.children !== this.props.children) {
+        const newState: $Shape<State> = {}
+        newState.children = this.props.children
+        newState.wrappedChildren = this.wrapChildren(this.props.children, transitionState)
         this.setState(newState)
       }
     }
 
     onTransitionEnd = (e?: Event) => {
+      const {shouldTransition} = this.props
       const {transitionState} = this.state
       if (transitionState === 'leaving') {
         this.setState({
@@ -160,18 +178,18 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
           wrappedChildren: this.wrapChildren(this.props.children, 'out'),
         })
       } else if (transitionState === 'entering') {
-        if (this.props.children === this.state.children) {
-          this.setState({
-            transitionState: 'in',
-            height: undefined,
-            wrappedChildren: this.wrapChildren(this.props.children, 'in'),
-          })
-        } else {
+        if (shouldTransition(this.state.children, this.props.children)) {
           this.setState({
             transitionState: 'leaving',
             wrappedChildren: this.wrapChildren(this.state.children, 'leaving'),
           })
           this.setTimeout('fadeOut', this.onTransitionEnd, this.props.fadeOutTransitionDuration)
+        } else {
+          this.setState({
+            transitionState: 'in',
+            height: undefined,
+            wrappedChildren: this.wrapChildren(this.props.children, 'in'),
+          })
         }
       }
     }

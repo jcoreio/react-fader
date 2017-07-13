@@ -94,7 +94,7 @@ class SmokeTest extends React.Component {
               animateHeight={Boolean(animateHeight)}
               measureHeight={node => getNodeDimensions(node, {margin: true}).height}
           >
-            <div style={pageStyle}>
+            <div key={activePage} style={pageStyle}>
               <h3 style={{marginTop: 0}}>Page {activePage}</h3>
               <input type="text" ref={c => this.inputRefs[activePage] = c} />
               {FaderComp === FaderWithTransitionContext &&

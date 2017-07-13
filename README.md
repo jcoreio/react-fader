@@ -8,9 +8,6 @@
 A React Component that fades out old children, then fades in new children when its children change.
 It can also optionally animate its height from one child's height to the other.
 
-:sparkles: **If you're using `react-router` v2 or v3, make it the component of a parent route, and voilà, you
-automagically get fade transitions between child routes.**
-
 ## Usage
 
 ```sh
@@ -55,6 +52,11 @@ import getNodeDimensions from 'get-node-dimensions'
   ...
 </Fader>
 ```
+
+##### `shouldTransition: (oldChildren: any, newChildren: any) => boolean` (default: compares keys)
+
+Allows you to determine whether `Fader` should perform a transition from `oldChildren` to `newChildren`.  By default,
+it returns true if `oldChildren !== newChildren` or their keys are not equal.
 
 ##### `fadeOutTransitionDuration: number` (default: `200`)
 
