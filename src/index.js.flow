@@ -1,0 +1,59 @@
+/* @flow */
+
+import React from 'react'
+import type {Prefixer} from 'inline-style-prefixer'
+
+export type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
+
+export type DefaultProps = {
+  fadeInTransitionDuration: number,
+  fadeInTransitionTimingFunction: string,
+  fadeOutTransitionDuration: number,
+  fadeOutTransitionTimingFunction: string,
+  heightTransitionDuration: number,
+  heightTransitionTimingFunction: string,
+  prefixer: Prefixer,
+  style: Object,
+  measureHeight: (node: HTMLElement) => number,
+  shouldTransition: (oldChildren: any, newChildren: any) => boolean,
+}
+
+export type Props = {
+  innerRef?: (c: ?HTMLSpanElement) => any,
+  shouldTransition: (oldChildren: any, newChildren: any) => boolean,
+  children?: any,
+  animateHeight?: boolean,
+  fadeInTransitionDuration: number,
+  fadeInTransitionTimingFunction: string,
+  fadeOutTransitionDuration: number,
+  fadeOutTransitionTimingFunction: string,
+  heightTransitionDuration: number,
+  heightTransitionTimingFunction: string,
+  prefixer: Prefixer,
+  style: Object,
+  fillParent?: boolean,
+  className?: string,
+  measureHeight: (node: HTMLElement) => number,
+}
+
+export type State = {
+  children: any,
+  height: ?number,
+  wrappedChildren: React.Element<any>,
+  transitionState: TransitionState,
+  transitioningHeight: boolean,
+}
+
+export type Options = {
+  wrapChildren?: (children: any, transitionState: TransitionState) => React.Element<any>,
+}
+
+declare export function defaultWrapChildren(children: any, transitionState: TransitionState): React.Element<any>
+
+declare export function createFader(options?: Options): Class<React.Component<DefaultProps, Props, State>>
+
+declare export default class Fader extends React.Component<DefaultProps, Props, State> {
+  static defaultProps: DefaultProps;
+  state: State;
+}
+

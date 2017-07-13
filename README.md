@@ -36,6 +36,10 @@ ReactDOM.render(
 )
 ```
 
+## Transitioning between child routes with `react-router` version 2 or 3
+
+Use [`react-router-fader`](https://github.com/jcoreio/react-router-fader), which builds off of this.
+
 ## Props
 
 ##### `animateHeight: boolean` (default: `true`)
@@ -100,6 +104,9 @@ Extra inline styles to add to the root element.
 
 ## `withTransitionContext`
 
+```sh
+npm install --save react-fader react-transition-context
+```
 ```js
 import Fader from 'react-fader/lib/withTransitionContext'
 ```

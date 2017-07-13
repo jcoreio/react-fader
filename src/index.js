@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import Prefixer from 'inline-style-prefixer'
 
-type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
+export type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
 
 export type DefaultProps = {
   fadeInTransitionDuration: number,
