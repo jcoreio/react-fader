@@ -5,8 +5,11 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-A React Component that fades out old children, then fades in new children when its children change.  It can also
-optionally animate its height from one child's height to the other.
+A React Component that fades out old children, then fades in new children when its children change.
+It can also optionally animate its height from one child's height to the other.
+
+:sparkles: **If you're using `react-router` v2 or v3, make it the component of a parent route, and voilà, you
+automagically get fade transitions between child routes.**
 
 ## Usage
 
@@ -38,47 +41,58 @@ ReactDOM.render(
 
 ## Props
 
-### `animateHeight: boolean` (default: `true`)
+##### `animateHeight: boolean` (default: `true`)
 
-If truthy, `Fader` will animate its height to match the height of its children.
+If truthy and `fillParent` is falsy, `Fader` will animate its height to match the height of its children.
 
-### `fadeOutTransitionDuration: number` (default: `200`)
+##### `measureHeight: (node: HTMLElement) => number` (default: `node => node.offsetHeight`)
+
+Allows you to override the height measurement function used for `animateHeight`.  For instance, you might want to use:
+```js
+import getNodeDimensions from 'get-node-dimensions'
+
+<Fader measureHeight={node => getNodeDimensions(node, {margin: true}).height} ...>
+  ...
+</Fader>
+```
+
+##### `fadeOutTransitionDuration: number` (default: `200`)
 
 The duration of the fade out transition, in milliseconds.
 
-### `fadeOutTransitionTimingFunction: string` (default: `'ease'`)
+##### `fadeOutTransitionTimingFunction: string` (default: `'ease'`)
 
 The timing function for the fade out transition.
 
-### `fadeInTransitionDuration: number` (default: `200`)
+##### `fadeInTransitionDuration: number` (default: `200`)
 
 The duration of the fade in transition, in milliseconds.
 
-### `fadeInTransitionTimingFunction: string` (default: `'ease'`)
+##### `fadeInTransitionTimingFunction: string` (default: `'ease'`)
 
 The timing function for the fade in transition.
 
-### `heightTransitionDuration: number` (default: `200`)
+##### `heightTransitionDuration: number` (default: `200`)
 
 The duration of the height transition, in milliseconds.
 
-### `heightTransitionTimingFunction: string` (default: `'ease'`)
+##### `heightTransitionTimingFunction: string` (default: `'ease'`)
 
 The timing function for the height transition.
 
-### `prefixer: Prefixer`
+##### `prefixer: Prefixer`
 
 If given, overrides the `inline-style-prefixer` used to autoprefix inline styles.
 
-### `fillParent: boolean` (default: `false`)
+##### `fillParent: boolean` (default: `false`)
 
 If truthy, `Fader` will use absolute positioning to fill its parent element.
 
-### `className: string`
+##### `className: string`
 
 Any extra class names to add to the root element.
 
-### `style: Object`
+##### `style: Object`
 
 Extra inline styles to add to the root element.
 
