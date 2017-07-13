@@ -131,9 +131,10 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
 
     componentDidUpdate() {
       const {transitionState, height, transitioningHeight} = this.state
-      const {animateHeight, fillParent, shouldTransition} = this.props
+      const {animateHeight, fillParent} = this.props
+      const shouldTransition = this.props.shouldTransition(this.state.children, this.props.children)
 
-      if (transitionState === 'in' && shouldTransition(this.state.children, this.props.children)) {
+      if (transitionState === 'in' && shouldTransition) {
         const newState: $Shape<State> = {}
         newState.children = this.props.children
         newState.transitionState = 'leaving'
@@ -147,7 +148,7 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
         if (!transitioningHeight) this.setState({transitioningHeight: true})
       } else if (transitionState === 'out') {
         const newState: $Shape<State> = {}
-        if (shouldTransition(this.state.children, this.props.children)) {
+        if (shouldTransition) {
           newState.children = this.props.children
           newState.wrappedChildren = this.wrapChildren(this.props.children, 'out')
         } else {
@@ -161,7 +162,7 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
           }
         }
         this.setState(newState)
-      } else if (this.state.children !== this.props.children) {
+      } else if (!shouldTransition && this.state.children !== this.props.children) {
         const newState: $Shape<State> = {}
         newState.children = this.props.children
         newState.wrappedChildren = this.wrapChildren(this.props.children, transitionState)
