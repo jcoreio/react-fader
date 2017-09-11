@@ -5,8 +5,9 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-A React Component that fades out old children, then fades in new children when its children change.
+A React Component that fades out its old child, then fades in its new child when its children change.
 It can also optionally animate its height from one child's height to the other.
+Works well with `react-router`!
 
 ## Usage
 
@@ -34,6 +35,25 @@ ReactDOM.render(
   </Fader>,
   document.getElementById('root')
 )
+```
+
+## Transitioning between child routes with `react-router` version 4
+
+While it can be done with `<Switch>`, I recommend using
+[`react-router-transition-switch`](https://github.com/jcoreio/react-router-transition-switch) instead:
+
+```js
+import {Route, BrowserRouter as Router} from 'react-router-dom'
+import TransitionSwitch from 'react-router-transition-switch'
+import Fader from 'react-fader'
+
+<Router>
+  <TransitionSwitch component={Fader}>
+    <Route path="/red" component={Red}/>
+    <Route path="/green" component={Green} />
+    <Route path="/blue" component={Blue} />
+  </TransitionSwitch>
+<Router>
 ```
 
 ## Transitioning between child routes with `react-router` version 2 or 3

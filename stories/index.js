@@ -1,11 +1,15 @@
 import React from 'react'
+import {findDOMNode} from 'react-dom'
 import { storiesOf } from '@storybook/react'
 import Prefixer from 'inline-style-prefixer'
 import {TransitionListener} from 'react-transition-context'
+import {Button, ButtonGroup, Panel, FormControl} from 'react-bootstrap'
 
 import Fader from '../src'
 import FaderWithTransitionContext from '../src/withTransitionContext'
 import getNodeDimensions from 'get-node-dimensions'
+
+import ReactRouterDemo from './ReactRouterDemo'
 
 /* eslint-env browser */
 
@@ -13,35 +17,48 @@ const smokeTestPages = [
   {
     height: 200,
     backgroundColor: 'red',
+    bsStyle: 'primary',
   },
   {
     height: 500,
     backgroundColor: 'blue',
+    bsStyle: 'info',
   },
   {
-    height: 80,
+    height: 100,
     backgroundColor: 'green',
+    bsStyle: 'success',
   },
   {
     height: 2000,
     backgroundColor: 'yellow',
+    bsStyle: 'warning',
   },
   {
     height: 1000,
     backgroundColor: 'orange',
+    bsStyle: 'danger',
   },
 ]
 
 const prefixer = new Prefixer()
 
 const styles = {
+  default: {
+    root: prefixer.prefix({
+      margin: 10,
+    }),
+    buttons: prefixer.prefix({
+      marginBottom: 15,
+    }),
+  },
   fillParent: {
     root: prefixer.prefix({
       position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
+      top: 10,
+      left: 10,
+      right: 10,
+      bottom: 10,
       display: 'flex',
       flexDirection: 'column',
     }),
@@ -74,16 +91,17 @@ class SmokeTest extends React.Component {
     const {activePage} = this.state
     const FaderComp = this.props.Fader || Fader
 
+    const {height} = smokeTestPages[activePage]
     const pageStyle = this.props.margins
-      ? {...smokeTestPages[activePage], marginTop: 20, paddingTop: 10, paddingBottom: 5, paddingLeft: 10, paddingRight: 10}
-      : smokeTestPages[activePage]
+      ? {height, marginTop: 20, marginLeft: 10, marginBottom: 20, marginRight: 10}
+      : {height}
 
     return (
-      <div style={fillParent ? styles.fillParent.root : {}}>
-        <div style={fillParent ? styles.fillParent.buttons : {}}>
-          Jump to Page: {smokeTestPages.map((child, index) =>
-            <button key={index} onClick={() => this.setState({activePage: index})}>{index}</button>
-          )}
+      <div style={fillParent ? styles.fillParent.root : styles.default.root}>
+        <div style={fillParent ? styles.fillParent.buttons : styles.default.buttons}>
+          Jump to Page: <ButtonGroup>{smokeTestPages.map((child, index) =>
+            <Button bsStyle={activePage === index ? 'primary' : undefined} key={index} onClick={() => this.setState({activePage: index})}>{index}</Button>
+          )}</ButtonGroup>
         </div>
         <div style={fillParent ? styles.fillParent.info : {}}>
           {info}
@@ -92,17 +110,21 @@ class SmokeTest extends React.Component {
           <FaderComp
               fillParent={fillParent}
               animateHeight={Boolean(animateHeight)}
-              measureHeight={node => getNodeDimensions(node, {margin: true}).height}
+              measureHeight={node => getNodeDimensions(findDOMNode(node), {margin: true}).height}
           >
-            <div key={activePage} style={pageStyle}>
-              <h3 style={{marginTop: 0}}>Page {activePage}</h3>
-              <input type="text" ref={c => this.inputRefs[activePage] = c} />
+            <Panel
+                key={activePage}
+                bsStyle={smokeTestPages[activePage].bsStyle}
+                header={<h3>Page {activePage}</h3>}
+                style={pageStyle}
+            >
+              <FormControl type="text" inputRef={c => this.inputRefs[activePage] = c} />
               {FaderComp === FaderWithTransitionContext &&
                 <TransitionListener didComeIn={() => this.pageDidComeIn(activePage)} />
               }
-            </div>
+            </Panel>
           </FaderComp>
-          {!fillParent && <div style={{borderTop: '1px solid black'}}>
+          {!fillParent && <div style={{borderTop: '1px solid black', textAlign: 'center'}}>
             This this the bottom of the Fader
           </div>}
         </div>
@@ -141,3 +163,4 @@ storiesOf('react-fader', module)
         }
     />
   ))
+  .add('with react-router v4', ReactRouterDemo)

@@ -7,6 +7,7 @@ import Prefixer from 'inline-style-prefixer'
 export type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
 
 export type DefaultProps = {
+  animateHeight: boolean,
   fadeInTransitionDuration: number,
   fadeInTransitionTimingFunction: string,
   fadeOutTransitionDuration: number,
@@ -23,7 +24,7 @@ export type Props = {
   innerRef?: (c: ?HTMLSpanElement) => any,
   shouldTransition: (oldChildren: any, newChildren: any) => boolean,
   children?: any,
-  animateHeight?: boolean,
+  animateHeight: boolean,
   fadeInTransitionDuration: number,
   fadeInTransitionTimingFunction: string,
   fadeOutTransitionDuration: number,
@@ -87,6 +88,7 @@ export function defaultWrapChildren(children: any, transitionState: TransitionSt
 export function createFader(options: Options = {}): Class<Component<DefaultProps, Props, State>> {
   return class Fader extends Component<DefaultProps, Props, State> {
     static defaultProps = {
+      animateHeight: true,
       fadeInTransitionDuration: 200,
       fadeInTransitionTimingFunction: 'linear',
       fadeOutTransitionDuration: 200,
