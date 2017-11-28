@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-env browser */
 
-import React, {Component} from 'react'
+import * as React from 'react'
 import Prefixer from 'inline-style-prefixer'
 
 export type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
@@ -50,7 +50,7 @@ export type Options = {
   wrapChildren?: (children: any, transitionState: TransitionState) => React.Element<any>,
 }
 
-export function defaultWrapChildren(children: any, transitionState: TransitionState): React.Element<any> {
+export function defaultWrapChildren(children: any, transitionState: TransitionState): React.Element<'div'> {
   const {prefixer, fillParent} = this.props
   const style: Object = {transitionProperty: 'opacity'}
   if (fillParent) {
@@ -85,9 +85,9 @@ export function defaultWrapChildren(children: any, transitionState: TransitionSt
   )
 }
 
-export function createFader(options: Options = {}): Class<Component<DefaultProps, Props, State>> {
-  return class Fader extends Component<DefaultProps, Props, State> {
-    static defaultProps = {
+export function createFader(options: Options = {}): Class<React.Component<Props, State>> {
+  return class Fader extends React.Component<Props, State> {
+    static defaultProps: DefaultProps = {
       animateHeight: true,
       fadeInTransitionDuration: 200,
       fadeInTransitionTimingFunction: 'linear',
@@ -204,7 +204,7 @@ export function createFader(options: Options = {}): Class<Component<DefaultProps
       for (let name in this.timeouts) clearTimeout(this.timeouts[name])
     }
 
-    render(): React.Element<any> {
+    render(): React.Element<'div'> {
       const {height, transitioningHeight, wrappedChildren} = this.state
       const {className, prefixer, fillParent, innerRef} = this.props
       const style = {...this.props.style}
