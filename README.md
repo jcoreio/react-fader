@@ -9,6 +9,7 @@ A React Component that fades out its old child, then fades in its new child when
 It can also optionally animate its height from one child's height to the other.
 Works well with `react-router`!
 
+
 ## Usage
 
 ```sh
