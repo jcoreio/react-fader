@@ -3,7 +3,7 @@ const webpackConfig = require('./webpack.config')
 module.exports = (config) => {
   config.set({
     browsers: ['PhantomJS'],
-    frameworks: ['mocha'],
+    frameworks: ['es6-shim', 'mocha'],
     files: ['test/index.js'],
     preprocessors: {
       'test/index.js': ['webpack', 'sourcemap']
