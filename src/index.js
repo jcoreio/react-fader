@@ -21,7 +21,7 @@ export type DefaultProps = {
 }
 
 export type Props = {
-  innerRef?: (c: ?HTMLSpanElement) => any,
+  innerRef?: (c: ?React.ElementRef<'div'>) => any,
   shouldTransition: (oldChildren: any, newChildren: any) => boolean,
   children?: any,
   animateHeight: boolean,
