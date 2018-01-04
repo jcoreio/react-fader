@@ -23,7 +23,7 @@ export type DefaultProps = {
 export type Props = {
   innerRef?: (c: ?React.ElementRef<'div'>) => any,
   shouldTransition: (oldChildren: any, newChildren: any) => boolean,
-  children?: any,
+  children?: React.Node,
   animateHeight: boolean,
   fadeInTransitionDuration: number,
   fadeInTransitionTimingFunction: string,
@@ -85,7 +85,7 @@ export function defaultWrapChildren(children: any, transitionState: TransitionSt
   )
 }
 
-export function createFader(options: Options = {}): Class<React.Component<Props, State>> {
+export function createFader(options: Options = {}): Class<React.Component<$Shape<Props>, State>> {
   return class Fader extends React.Component<Props, State> {
     static defaultProps: DefaultProps = {
       animateHeight: true,

@@ -1,4 +1,7 @@
-import React from 'react'
+// @flow
+
+import {describe, it, beforeEach, afterEach} from 'mocha'
+import * as React from 'react'
 import Fader from '../src'
 import {mount} from 'enzyme'
 import {configure as configureEnzyme} from 'enzyme'
@@ -40,6 +43,8 @@ describe('Fader', () => {
         <h3>Foo</h3>
       </Fader>
     )
+
+    if (!element) throw new Error('expected element to be defined')
 
     expect(comp.text()).to.equal('Foo')
     const {style} = element
@@ -85,6 +90,8 @@ describe('Fader', () => {
       </Fader>,
       {attachTo: document.getElementById('root')}
     )
+
+    if (!instance) throw new Error('expected instance to be defined')
 
     expect(comp.text()).to.equal('Foo')
     expect(instance.getBoundingClientRect().height).to.equal(200)
