@@ -40,10 +40,6 @@ module.exports = {
   },
   plugins,
   module: {
-    // Suppress warning from mocha: "Critical dependency: the request of a dependency is an expression"
-    // @see https://webpack.js.org/configuration/module/#module-contexts
-    exprContextCritical: false,
-    
     rules: [
       {
         loader: 'babel-loader',
@@ -51,12 +47,6 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  },
-  // Suppress fatal error: Cannot resolve module 'fs'
-  // @relative https://github.com/pugjs/pug-loader/issues/8
-  // @see https://github.com/webpack/docs/wiki/Configuration#node
-  node: {
-    fs: 'empty',
   },
   externals,
   devtool: 'source-map'

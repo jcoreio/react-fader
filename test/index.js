@@ -4,7 +4,6 @@ import * as React from 'react'
 import {mount} from 'enzyme'
 import {expect} from 'chai'
 
-import {describe, it} from 'mocha'
 import {configure} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
