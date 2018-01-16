@@ -1,9 +1,16 @@
 const webpackConfig = require('./webpack.config')
+process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 module.exports = (config) => {
   config.set({
-    browsers: ['PhantomJS'],
-    frameworks: ['es6-shim', 'mocha'],
+    browsers: ['ChromeHeadless', 'FirefoxHeadless'],
+    customLaunchers: {
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: [ '-headless' ],
+      },
+    },
+    frameworks: ['mocha'],
     files: ['test/index.js'],
     preprocessors: {
       'test/index.js': ['webpack', 'sourcemap']

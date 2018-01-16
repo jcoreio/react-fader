@@ -77,8 +77,8 @@ export function defaultWrapChildren(children: any, transitionState: TransitionSt
   }
   return (
     <div
-        data-transition-state={transitionState}
-        style={prefixer.prefix(style)}
+      data-transition-state={transitionState}
+      style={prefixer.prefix(style)}
     >
       {children && React.cloneElement(children, {ref: c => this.wrappedChildrenRef = c})}
     </div>
@@ -113,7 +113,7 @@ export function createFader(options: Options = {}): Class<React.Component<$Shape
     }
 
     wrappedChildrenRef: ?HTMLElement
-    timeouts: { [name: string]: number } = {}
+    timeouts: { [name: string]: any } = {}
 
     wrapChildren: (children: any, transitionState: TransitionState) => React.Element<any> =
       (options.wrapChildren || defaultWrapChildren).bind(this)

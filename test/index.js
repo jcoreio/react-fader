@@ -1,6 +1,5 @@
 // @flow
 
-import {describe, it, beforeEach, afterEach} from 'mocha'
 import * as React from 'react'
 import Fader from '../src'
 import {mount} from 'enzyme'
@@ -84,11 +83,13 @@ describe('Fader', () => {
   it('height animation works', () => {
     let instance
 
+    const rootElement = document.getElementById('root')
+    if (rootElement == null) throw new Error("couldn't find root element")
     const comp = mount(
       <Fader innerRef={c => instance = c} animateHeight>
         <div style={{width: 500, height: 200}}>Foo</div>
       </Fader>,
-      {attachTo: document.getElementById('root')}
+      {attachTo: rootElement}
     )
 
     if (!instance) throw new Error('expected instance to be defined')
@@ -115,3 +116,4 @@ describe('Fader', () => {
     comp.unmount()
   })
 })
+
