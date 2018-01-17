@@ -1,4 +1,6 @@
+os: linux
 dist: trusty
+sudo: required
 env:
   - MOZ_HEADLESS=1
 addons:
