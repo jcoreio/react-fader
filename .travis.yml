@@ -1,3 +1,9 @@
+dist: trusty
+env:
+  - MOZ_HEADLESS=1
+addons:
+  chrome: stable
+  firefox: latest
 language: node_js
 cache:
   directories:
