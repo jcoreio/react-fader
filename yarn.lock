@@ -777,9 +777,9 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-flow-react-proptypes@^13.0.2:
-  version "13.0.2"
-  resolved "https://registry.npmjs.org/babel-plugin-flow-react-proptypes/-/babel-plugin-flow-react-proptypes-13.0.2.tgz#0a6d0ccc7020f81ab48aa304830d2b55fea39dcc"
+babel-plugin-flow-react-proptypes@^17.0.0:
+  version "17.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-flow-react-proptypes/-/babel-plugin-flow-react-proptypes-17.1.0.tgz#332509038c52da1b3bd9aef97136a03133b21184"
   dependencies:
     babel-core "^6.25.0"
     babel-template "^6.25.0"
