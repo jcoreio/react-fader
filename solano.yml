@@ -1,5 +1,5 @@
 nodejs:
-  version: 8
+  version: '8.10'
 
 environment:
   'CI': 'true'
