@@ -2,7 +2,8 @@ nodejs:
   version: '8.9'
 
 tool_config:
-  git: 2.0.3
+  git:
+    version: '2.0.3'
 
 environment:
   'CI': 'true'
@@ -28,6 +29,14 @@ hooks:
       echo "\$TDDIUM_BUILD_STATUS = $TDDIUM_BUILD_STATUS"
       echo "Will only deploy on passed builds"
       exit
+    fi
+    eval `ssh-agent`
+    ssh-add ~/.ssh/ci_repo_key
+    git config remote.origin.tagOpt --tags
+    if [ -f .git/shallow ]; then
+      git fetch --unshallow origin
+    else
+      git fetch origin
     fi
     npm run codecov && npm run semantic-release
 
