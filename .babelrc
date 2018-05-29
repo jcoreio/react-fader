@@ -1,5 +1,6 @@
 {
   "presets": [
+    "stage-1",
     "flow",
     "react"
   ],
@@ -9,12 +10,14 @@
   "env": {
     "test": {
       "presets": [
-        ["env", {"targets": {"browsers": "last 2 versions"}}]
+        ["env", {"targets": {"browsers": "last 2 versions"}}],
+        "stage-1", "flow", "react"
       ],
     },
     "es5": {
       "presets": [
-        ["env", {"forceAllTransforms": true}]
+        ["env", {"forceAllTransforms": true}],
+        "stage-1", "flow", "react"
       ],
       "plugins": [
         "transform-react-constant-elements",
