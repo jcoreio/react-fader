@@ -2,11 +2,11 @@
 
 import * as React from 'react'
 import Fader from '../src'
-import {mount} from 'enzyme'
-import {configure as configureEnzyme} from 'enzyme'
+import { mount } from 'enzyme'
+import { configure as configureEnzyme } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 configureEnzyme({ adapter: new Adapter() })
-import {expect} from 'chai'
+import { expect } from 'chai'
 import sinon from 'sinon'
 
 describe('Fader', () => {
@@ -27,7 +27,13 @@ describe('Fader', () => {
 
     expect(comp.text()).to.equal('Foo')
 
-    comp.setProps({children: <div><h3>Bar</h3></div>})
+    comp.setProps({
+      children: (
+        <div>
+          <h3>Bar</h3>
+        </div>
+      ),
+    })
 
     expect(comp.text()).to.equal('Foo')
     clock.tick(1000)
@@ -38,7 +44,7 @@ describe('Fader', () => {
   it('works with fillParent', () => {
     let element
     const comp = mount(
-      <Fader fillParent innerRef={c => element = c}>
+      <Fader fillParent innerRef={c => (element = c)}>
         <h3>Foo</h3>
       </Fader>
     )
@@ -46,14 +52,20 @@ describe('Fader', () => {
     if (!element) throw new Error('expected element to be defined')
 
     expect(comp.text()).to.equal('Foo')
-    const {style} = element
+    const { style } = element
     expect(style.position).to.equal('absolute')
     expect(style.top).to.equal('0px')
     expect(style.left).to.equal('0px')
     expect(style.right).to.equal('0px')
     expect(style.bottom).to.equal('0px')
 
-    comp.setProps({children: <div><h3>Bar</h3></div>})
+    comp.setProps({
+      children: (
+        <div>
+          <h3>Bar</h3>
+        </div>
+      ),
+    })
 
     expect(comp.text()).to.equal('Foo')
     clock.tick(1000)
@@ -70,11 +82,23 @@ describe('Fader', () => {
 
     expect(comp.text()).to.equal('Foo')
 
-    comp.setProps({children: <div><h3>Bar</h3></div>})
+    comp.setProps({
+      children: (
+        <div>
+          <h3>Bar</h3>
+        </div>
+      ),
+    })
 
     expect(comp.text()).to.equal('Foo')
     clock.tick(100)
-    comp.setProps({children: <div><h3>Baz</h3></div>})
+    comp.setProps({
+      children: (
+        <div>
+          <h3>Baz</h3>
+        </div>
+      ),
+    })
     clock.tick(400)
     expect(comp.text()).to.equal('Baz')
 
@@ -86,10 +110,10 @@ describe('Fader', () => {
     const rootElement = document.getElementById('root')
     if (rootElement == null) throw new Error("couldn't find root element")
     const comp = mount(
-      <Fader innerRef={c => instance = c} animateHeight>
-        <div style={{width: 500, height: 200}}>Foo</div>
+      <Fader innerRef={c => (instance = c)} animateHeight>
+        <div style={{ width: 500, height: 200 }}>Foo</div>
       </Fader>,
-      {attachTo: rootElement}
+      { attachTo: rootElement }
     )
 
     if (!instance) throw new Error('expected instance to be defined')
@@ -98,7 +122,13 @@ describe('Fader', () => {
     expect(instance.getBoundingClientRect().height).to.equal(200)
     expect(instance.style.height).to.equal('')
 
-    comp.setProps({children: <div style={{height: 400}} ref={c => instance = c}>Bar</div>})
+    comp.setProps({
+      children: (
+        <div style={{ height: 400 }} ref={c => (instance = c)}>
+          Bar
+        </div>
+      ),
+    })
 
     expect(comp.text()).to.equal('Foo')
     expect(instance.style.height).to.equal('200px')
@@ -116,4 +146,3 @@ describe('Fader', () => {
     comp.unmount()
   })
 })
-

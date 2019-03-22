@@ -1,5 +1,16 @@
 {
   "extends": [
-    "@jedwards1211/eslint-config-react", "@jedwards1211/eslint-config-flow"
-  ]
+    "@jedwards1211/eslint-config",
+    "@jedwards1211/eslint-config-flow",
+    "@jedwards1211/eslint-config-react",
+    "eslint-config-prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true
+  }
 }

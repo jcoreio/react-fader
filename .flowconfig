@@ -1,8 +1,12 @@
 [ignore]
-<PROJECT_ROOT>/lib/.*
+<PROJECT_ROOT>/[^/\\]+\.js$
+<PROJECT_ROOT>/[^/\\]+\.js\.flow$
 <PROJECT_ROOT>/node_modules/immutable/.*
 <PROJECT_ROOT>/node_modules/.*/tests?/.*\.json
+<PROJECT_ROOT>/es/.*
 <PROJECT_ROOT>/node_modules/fbjs/.*
+<PROJECT_ROOT>/node_modules/.*/fbjs/.*
+<PROJECT_ROOT>/node_modules/.*/config-chain/.*
 
 [include]
 ./src
@@ -14,4 +18,3 @@
 module.system=node
 esproposal.class_static_fields=enable
 esproposal.class_instance_fields=enable
-

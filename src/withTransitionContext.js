@@ -1,12 +1,15 @@
 // @flow
 
 import * as React from 'react'
-import {createFader, defaultWrapChildren} from './index'
+import { createFader, defaultWrapChildren } from './index'
 import TransitionContext from 'react-transition-context'
 
 type TransitionState = 'in' | 'out' | 'entering' | 'leaving'
 
-function wrapChildren(children: any, transitionState: TransitionState): React.Element<typeof TransitionContext> {
+function wrapChildren(
+  children: any,
+  transitionState: TransitionState
+): React.Element<typeof TransitionContext> {
   return defaultWrapChildren.call(
     this,
     <TransitionContext transitionState={transitionState}>
@@ -16,5 +19,4 @@ function wrapChildren(children: any, transitionState: TransitionState): React.El
   )
 }
 
-export default createFader({wrapChildren})
-
+export default createFader({ wrapChildren })

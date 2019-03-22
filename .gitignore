@@ -2,4 +2,8 @@
 coverage
 node_modules
 lib
+es
 .eslintcache
+/*.js
+/*.js.flow
+!/.babelrc.js
