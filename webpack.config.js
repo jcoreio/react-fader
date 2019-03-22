@@ -1,9 +1,10 @@
 'use strict'
 
+/* eslint-env node */
+
 const webpack = require('webpack')
 const ProgressPlugin = require('webpack/lib/ProgressPlugin')
 const env = process.env.NODE_ENV
-const isDev = env === 'development'
 const isTest = env === 'test'
 const isProd = env === 'production'
 
@@ -11,32 +12,34 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(env),
   }),
-  new ProgressPlugin({profile: false}),
+  new ProgressPlugin({ profile: false }),
 ]
 
 if (isProd) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
-  }))
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    })
+  )
 }
 
 const externals = isTest
   ? {
-    cheerio: 'window',
-    'react/addons': true,
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true,
-  }
+      cheerio: 'window',
+      'react/addons': true,
+      'react/lib/ExecutionEnvironment': true,
+      'react/lib/ReactContext': true,
+    }
   : {
-    react: 'React'
-  }
+      react: 'React',
+    }
 
 module.exports = {
   output: {
     library: 'reactFader',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
   },
   plugins,
   module: {
@@ -47,10 +50,9 @@ module.exports = {
           cacheDirectory: true,
         },
         test: /\.js$/,
-      }
-    ]
+      },
+    ],
   },
   externals,
-  devtool: 'source-map'
+  devtool: 'source-map',
 }
-

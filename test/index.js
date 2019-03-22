@@ -1,10 +1,10 @@
 // @flow
 
 import * as React from 'react'
-import {mount} from 'enzyme'
-import {expect} from 'chai'
+import { mount } from 'enzyme'
+import { expect } from 'chai'
 
-import {configure} from 'enzyme'
+import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 import Hello from '../src/index'
