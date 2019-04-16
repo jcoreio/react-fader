@@ -27,45 +27,15 @@ describe('Fader', () => {
 
     expect(comp.text()).to.equal('Foo')
 
-    comp.setProps({
-      children: (
-        <div>
-          <h3>Bar</h3>
-        </div>
-      ),
-    })
-
-    expect(comp.text()).to.equal('Foo')
-    clock.tick(1000)
-    expect(comp.text()).to.equal('Bar')
-
-    comp.unmount()
-  })
-  it('works with fillParent', () => {
-    let element
-    const comp = mount(
-      <Fader fillParent innerRef={c => (element = c)}>
-        <h3>Foo</h3>
-      </Fader>
-    )
-
-    if (!element) throw new Error('expected element to be defined')
-
-    expect(comp.text()).to.equal('Foo')
-    const { style } = element
-    expect(style.position).to.equal('absolute')
-    expect(style.top).to.equal('0px')
-    expect(style.left).to.equal('0px')
-    expect(style.right).to.equal('0px')
-    expect(style.bottom).to.equal('0px')
-
-    comp.setProps({
-      children: (
-        <div>
-          <h3>Bar</h3>
-        </div>
-      ),
-    })
+    comp
+      .setProps({
+        children: (
+          <div>
+            <h3>Bar</h3>
+          </div>
+        ),
+      })
+      .update()
 
     expect(comp.text()).to.equal('Foo')
     clock.tick(1000)
@@ -82,23 +52,27 @@ describe('Fader', () => {
 
     expect(comp.text()).to.equal('Foo')
 
-    comp.setProps({
-      children: (
-        <div>
-          <h3>Bar</h3>
-        </div>
-      ),
-    })
+    comp
+      .setProps({
+        children: (
+          <div>
+            <h3>Bar</h3>
+          </div>
+        ),
+      })
+      .update()
 
     expect(comp.text()).to.equal('Foo')
     clock.tick(100)
-    comp.setProps({
-      children: (
-        <div>
-          <h3>Baz</h3>
-        </div>
-      ),
-    })
+    comp
+      .setProps({
+        children: (
+          <div>
+            <h3>Baz</h3>
+          </div>
+        ),
+      })
+      .update()
     clock.tick(400)
     expect(comp.text()).to.equal('Baz')
 
@@ -111,7 +85,9 @@ describe('Fader', () => {
     if (rootElement == null) throw new Error("couldn't find root element")
     const comp = mount(
       <Fader innerRef={c => (instance = c)} animateHeight>
-        <div style={{ width: 500, height: 200 }}>Foo</div>
+        <div key="foo" style={{ width: 500, height: 200 }}>
+          Foo
+        </div>
       </Fader>,
       { attachTo: rootElement }
     )
@@ -122,26 +98,71 @@ describe('Fader', () => {
     expect(instance.getBoundingClientRect().height).to.equal(200)
     expect(instance.style.height).to.equal('')
 
-    comp.setProps({
-      children: (
-        <div style={{ height: 400 }} ref={c => (instance = c)}>
-          Bar
-        </div>
-      ),
-    })
+    comp
+      .setProps({
+        children: (
+          <div key="bar" style={{ height: 400 }} ref={c => (instance = c)}>
+            Bar
+          </div>
+        ),
+      })
+      .update()
 
     expect(comp.text()).to.equal('Foo')
-    expect(instance.style.height).to.equal('200px')
+    expect(comp.state('height')).to.equal(200)
     clock.tick(100)
     expect(comp.state('transitionState')).to.equal('leaving')
-    expect(instance.style.height).to.equal('200px')
+    expect(comp.state('height')).to.equal(200)
     clock.tick(200)
     expect(comp.state('transitionState')).to.equal('entering')
-    expect(instance.style.height).to.equal('400px')
+    expect(comp.state('height')).to.equal(400)
     clock.tick(500)
     expect(comp.state('transitionState')).to.equal('in')
     expect(comp.state('height')).to.equal(undefined)
-    expect(instance.style.height).to.equal('')
+
+    comp.unmount()
+  })
+  it('width animation works', () => {
+    let instance
+
+    const rootElement = document.getElementById('root')
+    if (rootElement == null) throw new Error("couldn't find root element")
+    const comp = mount(
+      <Fader innerRef={c => (instance = c)} animateWidth>
+        <div key="foo" style={{ height: 500, width: 200 }}>
+          Foo
+        </div>
+      </Fader>,
+      { attachTo: rootElement }
+    )
+
+    if (!instance) throw new Error('expected instance to be defined')
+
+    expect(comp.text()).to.equal('Foo')
+    expect(instance.getBoundingClientRect().width).to.equal(200)
+    expect(instance.style.width).to.equal('')
+
+    comp
+      .setProps({
+        children: (
+          <div key="bar" style={{ width: 400 }} ref={c => (instance = c)}>
+            Bar
+          </div>
+        ),
+      })
+      .update()
+
+    expect(comp.text()).to.equal('Foo')
+    expect(comp.state('width')).to.equal(200)
+    clock.tick(100)
+    expect(comp.state('transitionState')).to.equal('leaving')
+    expect(comp.state('width')).to.equal(200)
+    clock.tick(200)
+    expect(comp.state('transitionState')).to.equal('entering')
+    expect(comp.state('width')).to.equal(400)
+    clock.tick(500)
+    expect(comp.state('transitionState')).to.equal('in')
+    expect(comp.state('width')).to.equal(undefined)
 
     comp.unmount()
   })

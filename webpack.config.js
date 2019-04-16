@@ -3,6 +3,7 @@
 /* eslint-env node */
 
 const webpack = require('webpack')
+const path = require('path')
 const ProgressPlugin = require('webpack/lib/ProgressPlugin')
 const env = process.env.NODE_ENV
 const isTest = env === 'test'
@@ -15,16 +16,6 @@ const plugins = [
   new ProgressPlugin({ profile: false }),
 ]
 
-if (isProd) {
-  plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    })
-  )
-}
-
 const externals = isTest
   ? {
       cheerio: 'window',
@@ -32,16 +23,26 @@ const externals = isTest
       'react/lib/ExecutionEnvironment': true,
       'react/lib/ReactContext': true,
     }
-  : {
-      react: 'React',
-    }
+  : {}
 
 module.exports = {
-  output: {
-    library: 'reactFader',
-    libraryTarget: 'umd',
-  },
+  mode: isProd ? 'production' : 'development',
+  devtool: isTest ? 'source-map' : 'eval',
+  output: isTest
+    ? {
+        library: 'reactFader',
+        libraryTarget: 'umd',
+      }
+    : {
+        path: path.join(__dirname, 'demo'),
+        filename: 'bundle.js',
+      },
   plugins,
+  resolve: {
+    alias: {
+      'react-fader': path.join(__dirname, 'src'),
+    },
+  },
   module: {
     rules: [
       {
@@ -49,11 +50,31 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           cacheDirectory: true,
+          plugins: [
+            '@babel/plugin-transform-flow-strip-types',
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-proposal-export-default-from',
+            '@babel/plugin-proposal-export-namespace-from',
+            '@babel/plugin-proposal-object-rest-spread',
+            '@babel/plugin-proposal-class-properties',
+          ],
+          presets: [
+            ['@babel/preset-env', { targets: { browsers: 'last 2 versions' } }],
+            '@babel/preset-react',
+            '@babel/preset-flow',
+          ],
         },
         test: /\.js$/,
       },
     ],
   },
   externals,
-  devtool: 'source-map',
+}
+
+if (!isTest) {
+  module.exports.entry = ['@babel/polyfill', './demo/index.js']
+  module.exports.devServer = {
+    port: 3000,
+    contentBase: path.join(__dirname, 'demo'),
+  }
 }
