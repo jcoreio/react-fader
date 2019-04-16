@@ -123,6 +123,7 @@
     "flow-bin": "^0.95.0",
     "flow-copy-source": "^2.0.2",
     "flow-watch": "^1.1.4",
+    "gh-pages": "^2.0.1",
     "husky": "^1.1.4",
     "karma": "^4.0.1",
     "karma-chrome-launcher": "^2.2.0",
