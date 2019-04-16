@@ -12,7 +12,6 @@ Works well with `react-router`!
 ## Usage
 
 ```sh
-<<<<<<< HEAD
 npm install --save react-fader
 ```
 
