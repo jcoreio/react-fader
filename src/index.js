@@ -33,6 +33,8 @@ export type Props = {
   sizeTransitionTimingFunction: string,
   prefixer: Prefixer,
   style: Object,
+  viewStyle?: ?Object,
+  innerViewWrapperStyle?: ?Object,
   className?: string,
 }
 
@@ -73,10 +75,16 @@ export default class Fader extends React.Component<Props, State> {
     children: any,
     transitionState: TransitionState
   ): React.Element<'div'> => {
-    const { animateWidth, prefixer } = this.props
+    const {
+      animateWidth,
+      prefixer,
+      viewStyle,
+      innerViewWrapperStyle,
+    } = this.props
     const style: Object = {
       display: animateWidth ? 'inline-flex' : 'flex',
       transitionProperty: 'opacity',
+      ...viewStyle,
     }
     switch (transitionState) {
       case 'out':
@@ -98,7 +106,10 @@ export default class Fader extends React.Component<Props, State> {
         data-transition-state={transitionState}
         style={prefixer.prefix(style)}
       >
-        <div style={{ width: '100%' }} ref={c => (this.wrappedChildrenRef = c)}>
+        <div
+          style={prefixer.prefix({ width: '100%', ...innerViewWrapperStyle })}
+          ref={c => (this.wrappedChildrenRef = c)}
+        >
           <TransitionContext state={transitionState}>
             {children}
           </TransitionContext>
