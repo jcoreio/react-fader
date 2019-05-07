@@ -145,7 +145,6 @@
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-router-transition-switch": "^1.0.2",
-    "react-transition-context": "^5.0.0",
     "rimraf": "^2.6.0",
     "semantic-release": "^15.13.3",
     "sinon": "^2.3.5",
@@ -156,7 +155,8 @@
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "inline-style-prefixer": "^3.0.6",
-    "prop-types": "^15.6.0"
+    "prop-types": "^15.6.0",
+    "react-transition-context": "^5.0.0"
   },
   "renovate": {
     "extends": [
