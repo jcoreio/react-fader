@@ -7,3 +7,4 @@ es
 /*.js
 /*.js.flow
 !/.babelrc.js
+!/webpack.config.js
