@@ -22,6 +22,25 @@ export type DefaultProps = {
 export type Props = {
   animateHeight?: ?boolean,
   animateWidth?: ?boolean,
+  innerRef?: ?(c: ?React.ElementRef<'div'>) => any,
+  shouldTransition?: ?(oldChildren: any, newChildren: any) => boolean,
+  children?: ?React.Node,
+  fadeInTransitionDuration?: ?number,
+  fadeInTransitionTimingFunction?: ?string,
+  fadeOutTransitionDuration?: ?number,
+  fadeOutTransitionTimingFunction?: ?string,
+  sizeTransitionDuration?: ?number,
+  sizeTransitionTimingFunction?: ?string,
+  prefixer?: ?Prefixer,
+  style?: ?Object,
+  viewStyle?: ?Object,
+  innerViewWrapperStyle?: ?Object,
+  className?: ?string,
+}
+
+export type DefaultedProps = {
+  animateHeight?: ?boolean,
+  animateWidth?: ?boolean,
   innerRef?: (c: ?React.ElementRef<'div'>) => any,
   shouldTransition: (oldChildren: any, newChildren: any) => boolean,
   children?: React.Node,
@@ -38,6 +57,38 @@ export type Props = {
   className?: string,
 }
 
+const defaultProps: DefaultProps = {
+  fadeInTransitionDuration: 200,
+  fadeInTransitionTimingFunction: 'linear',
+  fadeOutTransitionDuration: 200,
+  fadeOutTransitionTimingFunction: 'linear',
+  sizeTransitionDuration: 200,
+  sizeTransitionTimingFunction: 'ease',
+  prefixer: new Prefixer(),
+  style: {},
+  shouldTransition(oldChildren: any, newChildren: any): boolean {
+    if (oldChildren === newChildren) return false
+    if (
+      React.isValidElement(oldChildren) &&
+      React.isValidElement(newChildren) &&
+      oldChildren.key != null &&
+      oldChildren.key === newChildren.key
+    ) {
+      return false
+    }
+    return true
+  },
+}
+function applyDefaults(props: Props): DefaultedProps {
+  const result: any = { ...props }
+  for (const key in defaultProps) {
+    if (defaultProps.hasOwnProperty(key) && props[key] == null) {
+      result[key] = defaultProps[key]
+    }
+  }
+  return result
+}
+
 export type State = {
   children: any,
   height: ?number,
@@ -48,27 +99,15 @@ export type State = {
 }
 
 export default class Fader extends React.Component<Props, State> {
-  static defaultProps: DefaultProps = {
-    fadeInTransitionDuration: 200,
-    fadeInTransitionTimingFunction: 'linear',
-    fadeOutTransitionDuration: 200,
-    fadeOutTransitionTimingFunction: 'linear',
-    sizeTransitionDuration: 200,
-    sizeTransitionTimingFunction: 'ease',
-    prefixer: new Prefixer(),
-    style: {},
-    shouldTransition(oldChildren: any, newChildren: any): boolean {
-      if (oldChildren === newChildren) return false
-      if (
-        React.isValidElement(oldChildren) &&
-        React.isValidElement(newChildren) &&
-        oldChildren.key != null &&
-        oldChildren.key === newChildren.key
-      ) {
-        return false
-      }
-      return true
-    },
+  lastProps: Props = this.props
+  lastDefaultedProps: ?DefaultedProps
+
+  getDefaultedProps = (): DefaultedProps => {
+    if (this.lastProps !== this.props || !this.lastDefaultedProps) {
+      this.lastProps = this.props
+      this.lastDefaultedProps = applyDefaults(this.props)
+    }
+    return this.lastDefaultedProps
   }
 
   wrapChildren = (
@@ -80,7 +119,11 @@ export default class Fader extends React.Component<Props, State> {
       prefixer,
       viewStyle,
       innerViewWrapperStyle,
-    } = this.props
+      fadeInTransitionDuration,
+      fadeInTransitionTimingFunction,
+      fadeOutTransitionDuration,
+      fadeOutTransitionTimingFunction,
+    } = this.getDefaultedProps()
     const style: Object = {
       display: animateWidth ? 'inline-flex' : 'flex',
       transitionProperty: 'opacity',
@@ -90,15 +133,14 @@ export default class Fader extends React.Component<Props, State> {
       case 'out':
       case 'entering':
         style.opacity = transitionState === 'entering' ? 1 : 0
-        style.transitionDuration =
-          this.props.fadeInTransitionTimingFunction + 'ms'
-        style.transitionTimingFunction = this.props.fadeInTransitionTimingFunction
+        style.transitionDuration = fadeInTransitionDuration + 'ms'
+        style.transitionTimingFunction = fadeInTransitionTimingFunction
         break
       case 'in':
       case 'leaving':
         style.opacity = transitionState === 'in' ? 1 : 0
-        style.transitionDuration = this.props.fadeOutTransitionDuration + 'ms'
-        style.transitionTimingFunction = this.props.fadeOutTransitionTimingFunction
+        style.transitionDuration = fadeOutTransitionDuration + 'ms'
+        style.transitionTimingFunction = fadeOutTransitionTimingFunction
         break
     }
     return (
@@ -137,8 +179,15 @@ export default class Fader extends React.Component<Props, State> {
 
   componentDidUpdate() {
     const { transitionState, height, width, transitioningSize } = this.state
-    const { animateHeight, animateWidth } = this.props
-    const shouldTransition = this.props.shouldTransition(
+    const {
+      animateHeight,
+      animateWidth,
+      shouldTransition: _shouldTransition,
+      fadeOutTransitionDuration,
+      fadeInTransitionDuration,
+      sizeTransitionDuration,
+    } = this.getDefaultedProps()
+    const shouldTransition = _shouldTransition(
       this.state.children,
       this.props.children
     )
@@ -154,7 +203,7 @@ export default class Fader extends React.Component<Props, State> {
       this.setTimeout(
         'fadeOut',
         this.onTransitionEnd,
-        this.props.fadeOutTransitionDuration
+        fadeOutTransitionDuration
       )
       if (animateHeight && height === undefined && this.wrappedChildrenRef) {
         newState.height = this.wrappedChildrenRef.clientHeight
@@ -183,7 +232,7 @@ export default class Fader extends React.Component<Props, State> {
         this.setTimeout(
           'fadeIn',
           this.onTransitionEnd,
-          this.props.fadeInTransitionDuration
+          fadeInTransitionDuration
         )
         if (animateHeight) {
           if (this.wrappedChildrenRef) {
@@ -192,7 +241,7 @@ export default class Fader extends React.Component<Props, State> {
           this.setTimeout(
             'height',
             this.onSizeTransitionEnd,
-            this.props.sizeTransitionDuration
+            sizeTransitionDuration
           )
         }
         if (animateWidth) {
@@ -202,7 +251,7 @@ export default class Fader extends React.Component<Props, State> {
           this.setTimeout(
             'width',
             this.onSizeTransitionEnd,
-            this.props.sizeTransitionDuration
+            sizeTransitionDuration
           )
         }
       }
@@ -222,7 +271,10 @@ export default class Fader extends React.Component<Props, State> {
   }
 
   onTransitionEnd = (e?: Event) => {
-    const { shouldTransition } = this.props
+    const {
+      shouldTransition,
+      fadeOutTransitionDuration,
+    } = this.getDefaultedProps()
     const { transitionState } = this.state
     if (transitionState === 'leaving') {
       this.setState({
@@ -238,7 +290,7 @@ export default class Fader extends React.Component<Props, State> {
         this.setTimeout(
           'fadeOut',
           this.onTransitionEnd,
-          this.props.fadeOutTransitionDuration
+          fadeOutTransitionDuration
         )
       } else {
         this.setState({
@@ -260,18 +312,22 @@ export default class Fader extends React.Component<Props, State> {
 
   render(): React.Element<'div'> {
     const { height, width, transitioningSize, wrappedChildren } = this.state
-    const { animateWidth, className, prefixer, innerRef } = this.props
+    const {
+      animateWidth,
+      className,
+      prefixer,
+      innerRef,
+      style: _style,
+      sizeTransitionDuration,
+      sizeTransitionTimingFunction,
+    } = this.getDefaultedProps()
     const style = {
       height,
       width,
       display: animateWidth ? 'inline-block' : 'block',
-      ...this.props.style,
+      ..._style,
     }
     if (transitioningSize) {
-      const {
-        sizeTransitionDuration,
-        sizeTransitionTimingFunction,
-      } = this.props
       style.overflow = 'hidden'
       style.transition = `height ${sizeTransitionDuration}ms ${sizeTransitionTimingFunction}, width ${sizeTransitionDuration}ms ${sizeTransitionTimingFunction}`
     }
