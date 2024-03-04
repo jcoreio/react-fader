@@ -240,254 +240,154 @@ declare module 'react-router-transition-switch/webpack.config' {
 
 // Filename aliases
 declare module 'react-router-transition-switch/flow-typed/npm/@jedwards1211/eslint-config-flow_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/@jedwards1211/eslint-config-flow_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/@jedwards1211/eslint-config-flow_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/@jedwards1211/eslint-config-react_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/@jedwards1211/eslint-config-react_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/@jedwards1211/eslint-config-react_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/@storybook/react_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/@storybook/react_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/@storybook/react_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-cli_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-cli_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-cli_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-core_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-core_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-core_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-eslint_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-eslint_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-eslint_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-loader_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-loader_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-loader_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-plugin-flow-react-proptypes_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-plugin-flow-react-proptypes_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-plugin-flow-react-proptypes_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-plugin-istanbul_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-plugin-istanbul_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-plugin-istanbul_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-plugin-transform-react-constant-elements_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-plugin-transform-react-constant-elements_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-plugin-transform-react-constant-elements_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-plugin-transform-runtime_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-plugin-transform-runtime_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-plugin-transform-runtime_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-preset-es2015_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-preset-es2015_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-preset-es2015_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-preset-flow_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-preset-flow_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-preset-flow_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-preset-react_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-preset-react_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-preset-react_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-preset-stage-1_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-preset-stage-1_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-preset-stage-1_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-register_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-register_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-register_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/babel-runtime_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/babel-runtime_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/babel-runtime_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/chai_v3.5.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/chai_v3.5.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/chai_v3.5.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/copy_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/copy_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/copy_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/coveralls_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/coveralls_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/coveralls_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/enzyme_v3.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/enzyme_v3.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/enzyme_v3.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/eslint_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/eslint_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/eslint_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/eslint-plugin-flowtype_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/eslint-plugin-flowtype_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/eslint-plugin-flowtype_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/eslint-plugin-react_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/eslint-plugin-react_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/eslint-plugin-react_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/eslint-watch_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/eslint-watch_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/eslint-watch_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/flow-bin_v0.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/flow-bin_v0.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/flow-bin_v0.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/flow-watch_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/flow-watch_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/flow-watch_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/history_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/history_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/history_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/husky_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/husky_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/husky_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/invariant_v2.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/invariant_v2.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/invariant_v2.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-chrome-launcher_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-chrome-launcher_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-chrome-launcher_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-coverage_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-coverage_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-coverage_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-mocha_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-mocha_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-mocha_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-mocha-reporter_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-mocha-reporter_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-mocha-reporter_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-phantomjs-launcher_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-phantomjs-launcher_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-phantomjs-launcher_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-sourcemap-loader_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-sourcemap-loader_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-sourcemap-loader_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/karma-webpack_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/karma-webpack_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/karma-webpack_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/mocha_v3.1.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/mocha_v3.1.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/mocha_v3.1.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/prop-types_v15.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/prop-types_v15.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/prop-types_v15.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/react-addons-test-utils_v15.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/react-addons-test-utils_v15.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/react-addons-test-utils_v15.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/react-hot-loader_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/react-hot-loader_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/react-hot-loader_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/react-router_v4.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/react-router_v4.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/react-router_v4.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/react-router-dom_v4.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/react-router-dom_v4.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/react-router-dom_v4.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/react-test-renderer_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/react-test-renderer_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/react-test-renderer_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/rimraf_v2.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/rimraf_v2.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/rimraf_v2.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/semantic-release_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/semantic-release_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/semantic-release_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/sinon_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/sinon_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/sinon_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/validate-commit-msg_vx.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/validate-commit-msg_vx.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/validate-commit-msg_vx.x.x'>
 }
 declare module 'react-router-transition-switch/flow-typed/npm/warning_v3.x.x.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/flow-typed/npm/warning_v3.x.x'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/flow-typed/npm/warning_v3.x.x'>
 }
 declare module 'react-router-transition-switch/karma.conf.js' {
   declare module.exports: $Exports<'react-router-transition-switch/karma.conf'>
@@ -505,7 +405,5 @@ declare module 'react-router-transition-switch/src/index.js' {
   declare module.exports: $Exports<'react-router-transition-switch/src'>
 }
 declare module 'react-router-transition-switch/webpack.config.js' {
-  declare module.exports: $Exports<
-    'react-router-transition-switch/webpack.config'
-  >
+  declare module.exports: $Exports<'react-router-transition-switch/webpack.config'>
 }

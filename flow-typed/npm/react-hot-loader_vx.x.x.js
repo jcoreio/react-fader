@@ -139,14 +139,10 @@ declare module 'react-hot-loader/lib/webpack/index.js' {
   declare module.exports: $Exports<'react-hot-loader/lib/webpack'>
 }
 declare module 'react-hot-loader/lib/webpack/makeIdentitySourceMap.js' {
-  declare module.exports: $Exports<
-    'react-hot-loader/lib/webpack/makeIdentitySourceMap'
-  >
+  declare module.exports: $Exports<'react-hot-loader/lib/webpack/makeIdentitySourceMap'>
 }
 declare module 'react-hot-loader/lib/webpack/tagCommonJSExports.js' {
-  declare module.exports: $Exports<
-    'react-hot-loader/lib/webpack/tagCommonJSExports'
-  >
+  declare module.exports: $Exports<'react-hot-loader/lib/webpack/tagCommonJSExports'>
 }
 declare module 'react-hot-loader/patch.js' {
   declare module.exports: $Exports<'react-hot-loader/patch'>

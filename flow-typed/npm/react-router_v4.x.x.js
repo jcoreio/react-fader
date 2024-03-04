@@ -70,58 +70,72 @@ declare module 'react-router' {
 
   declare type StaticRouterContext = { url?: string, ... }
 
-  declare export class StaticRouter extends React$Component<{
-    basename?: string,
-    location?: string | Location,
-    context: StaticRouterContext,
-    children?: React$Node,
-    ...
-  }> {}
+  declare export class StaticRouter
+    extends
+      React$Component<{
+        basename?: string,
+        location?: string | Location,
+        context: StaticRouterContext,
+        children?: React$Node,
+        ...
+      }> {}
 
-  declare export class MemoryRouter extends React$Component<{
-    initialEntries?: Array<LocationShape | string>,
-    initialIndex?: number,
-    getUserConfirmation?: GetUserConfirmation,
-    keyLength?: number,
-    children?: React$Node,
-    ...
-  }> {}
+  declare export class MemoryRouter
+    extends
+      React$Component<{
+        initialEntries?: Array<LocationShape | string>,
+        initialIndex?: number,
+        getUserConfirmation?: GetUserConfirmation,
+        keyLength?: number,
+        children?: React$Node,
+        ...
+      }> {}
 
-  declare export class Router extends React$Component<{
-    history: RouterHistory,
-    children?: React$Node,
-    ...
-  }> {}
+  declare export class Router
+    extends
+      React$Component<{
+        history: RouterHistory,
+        children?: React$Node,
+        ...
+      }> {}
 
-  declare export class Prompt extends React$Component<{
-    message: string | ((location: Location) => string | true),
-    when?: boolean,
-    ...
-  }> {}
+  declare export class Prompt
+    extends
+      React$Component<{
+        message: string | ((location: Location) => string | true),
+        when?: boolean,
+        ...
+      }> {}
 
-  declare export class Redirect extends React$Component<{|
-    to: string | LocationShape,
-    push?: boolean,
-    from?: string,
-    exact?: boolean,
-    strict?: boolean,
-  |}> {}
+  declare export class Redirect
+    extends
+      React$Component<{|
+        to: string | LocationShape,
+        push?: boolean,
+        from?: string,
+        exact?: boolean,
+        strict?: boolean,
+      |}> {}
 
-  declare export class Route extends React$Component<{|
-    component?: React$ComponentType<*>,
-    render?: (router: ContextRouter) => React$Node,
-    children?: React$ComponentType<ContextRouter> | React$Node,
-    path?: string,
-    exact?: boolean,
-    strict?: boolean,
-    location?: LocationShape,
-    sensitive?: boolean,
-  |}> {}
+  declare export class Route
+    extends
+      React$Component<{|
+        component?: React$ComponentType<*>,
+        render?: (router: ContextRouter) => React$Node,
+        children?: React$ComponentType<ContextRouter> | React$Node,
+        path?: string,
+        exact?: boolean,
+        strict?: boolean,
+        location?: LocationShape,
+        sensitive?: boolean,
+      |}> {}
 
-  declare export class Switch extends React$Component<{|
-    children?: React$Node,
-    location?: Location,
-  |}> {}
+  declare export class Switch
+    extends
+      React$Component<{|
+        children?: React$Node,
+        location?: Location,
+      |}> {}
 
   declare export function withRouter<P>(
     Component: React$ComponentType<{| ...ContextRouter, ...P |}>

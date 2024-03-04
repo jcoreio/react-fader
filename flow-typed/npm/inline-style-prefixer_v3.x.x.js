@@ -16,5 +16,5 @@ declare module 'inline-style-prefixer' {
 }
 
 declare module 'inline-style-prefixer/static' {
-  declare module.exports: Object => Object
+  declare module.exports: (Object) => Object
 }

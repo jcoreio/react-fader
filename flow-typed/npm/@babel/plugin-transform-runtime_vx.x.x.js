@@ -32,9 +32,7 @@ declare module '@babel/plugin-transform-runtime/lib' {
 
 // Filename aliases
 declare module '@babel/plugin-transform-runtime/lib/definitions.js' {
-  declare module.exports: $Exports<
-    '@babel/plugin-transform-runtime/lib/definitions'
-  >
+  declare module.exports: $Exports<'@babel/plugin-transform-runtime/lib/definitions'>
 }
 declare module '@babel/plugin-transform-runtime/lib/index' {
   declare module.exports: $Exports<'@babel/plugin-transform-runtime/lib'>

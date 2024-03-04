@@ -40,14 +40,10 @@ declare module 'karma-chrome-launcher/test/jsflags.spec' {
 
 // Filename aliases
 declare module 'karma-chrome-launcher/examples/simple/index.spec.js' {
-  declare module.exports: $Exports<
-    'karma-chrome-launcher/examples/simple/index.spec'
-  >
+  declare module.exports: $Exports<'karma-chrome-launcher/examples/simple/index.spec'>
 }
 declare module 'karma-chrome-launcher/examples/simple/karma.conf.js' {
-  declare module.exports: $Exports<
-    'karma-chrome-launcher/examples/simple/karma.conf'
-  >
+  declare module.exports: $Exports<'karma-chrome-launcher/examples/simple/karma.conf'>
 }
 declare module 'karma-chrome-launcher/gruntfile.js' {
   declare module.exports: $Exports<'karma-chrome-launcher/gruntfile'>

@@ -1,8 +1,4 @@
-/**
- * @flow
- * @prettier
- */
-
+import { Flow } from 'flow-to-typescript-codemod'
 import * as React from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -13,14 +9,11 @@ import ArrowBack from '@material-ui/icons/ArrowBack'
 import ArrowForward from '@material-ui/icons/ArrowForward'
 import withStyles from '@material-ui/core/styles/withStyles'
 import { useAutofocusRef } from 'react-transition-context'
-
-type Classes = $Call<
-  <T>((theme: any) => T) => $ObjMap<T, () => string>,
-  typeof styles
+type Classes = ReturnType<
+  <T>(arg1: (theme?: any) => T) => Flow.ObjMap<T, () => string>
 >
-
 export type Props = {
-  classes: Classes,
+  classes: Classes
 }
 
 const styles = (theme: any) => ({
@@ -53,10 +46,11 @@ const styles = (theme: any) => ({
   },
 })
 
-const SignupDemo = ({ classes }: Props): React.Node => {
+const SignupDemo = ({ classes }: Props): React.ReactElement => {
   const [step, setStep] = React.useState(0)
   let content
   const Step = steps[step]
+
   if (Step) {
     content = (
       <Step
@@ -68,6 +62,7 @@ const SignupDemo = ({ classes }: Props): React.Node => {
       />
     )
   }
+
   return (
     <div className={classes.root}>
       <Typography variant="h6">Signup Form Example</Typography>
@@ -88,13 +83,12 @@ const SignupDemo = ({ classes }: Props): React.Node => {
 }
 
 export default withStyles(styles)(SignupDemo)
-
 type FormProps = {
-  classes: Classes,
-  onSubmit: (e: Event) => any,
+  classes: Classes
+  onSubmit: (e: Event) => any
 }
 
-const EmailForm = ({ classes, onSubmit }: FormProps): React.Node => {
+const EmailForm = ({ classes, onSubmit }: FormProps): React.ReactElement => {
   const autofocusRef = useAutofocusRef()
   return (
     <form className={classes.form} onSubmit={onSubmit}>
@@ -115,7 +109,10 @@ const EmailForm = ({ classes, onSubmit }: FormProps): React.Node => {
   )
 }
 
-const VerificationCodeForm = ({ classes, onSubmit }: FormProps): React.Node => {
+const VerificationCodeForm = ({
+  classes,
+  onSubmit,
+}: FormProps): React.ReactElement => {
   const autofocusRef = useAutofocusRef()
   return (
     <form className={classes.form} onSubmit={onSubmit}>
@@ -136,7 +133,10 @@ const VerificationCodeForm = ({ classes, onSubmit }: FormProps): React.Node => {
   )
 }
 
-const OrganizationForm = ({ classes, onSubmit }: FormProps): React.Node => {
+const OrganizationForm = ({
+  classes,
+  onSubmit,
+}: FormProps): React.ReactElement => {
   const autofocusRef = useAutofocusRef()
   return (
     <form className={classes.form} onSubmit={onSubmit}>
@@ -163,7 +163,7 @@ const OrganizationForm = ({ classes, onSubmit }: FormProps): React.Node => {
   )
 }
 
-const PasswordForm = ({ classes, onSubmit }: FormProps): React.Node => {
+const PasswordForm = ({ classes, onSubmit }: FormProps): React.ReactElement => {
   const autofocusRef = useAutofocusRef()
   return (
     <form className={classes.form} onSubmit={onSubmit}>
@@ -190,7 +190,7 @@ const PasswordForm = ({ classes, onSubmit }: FormProps): React.Node => {
   )
 }
 
-const DoneForm = ({ classes, onSubmit }: FormProps): React.Node => (
+const DoneForm = ({ classes, onSubmit }: FormProps): React.ReactElement => (
   <div className={classes.form}>
     <Typography variant="h5" className={classes.h5}>
       <em>End of Demo</em>

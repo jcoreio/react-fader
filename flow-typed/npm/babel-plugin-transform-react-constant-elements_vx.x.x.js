@@ -28,12 +28,8 @@ declare module 'babel-plugin-transform-react-constant-elements/lib' {
 
 // Filename aliases
 declare module 'babel-plugin-transform-react-constant-elements/lib/index' {
-  declare module.exports: $Exports<
-    'babel-plugin-transform-react-constant-elements/lib'
-  >
+  declare module.exports: $Exports<'babel-plugin-transform-react-constant-elements/lib'>
 }
 declare module 'babel-plugin-transform-react-constant-elements/lib/index.js' {
-  declare module.exports: $Exports<
-    'babel-plugin-transform-react-constant-elements/lib'
-  >
+  declare module.exports: $Exports<'babel-plugin-transform-react-constant-elements/lib'>
 }

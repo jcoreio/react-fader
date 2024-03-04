@@ -50,20 +50,14 @@ declare module 'react-router-bootstrap/lib/index.js' {
   declare module.exports: $Exports<'react-router-bootstrap/lib'>
 }
 declare module 'react-router-bootstrap/lib/IndexLinkContainer.js' {
-  declare module.exports: $Exports<
-    'react-router-bootstrap/lib/IndexLinkContainer'
-  >
+  declare module.exports: $Exports<'react-router-bootstrap/lib/IndexLinkContainer'>
 }
 declare module 'react-router-bootstrap/lib/LinkContainer.js' {
   declare module.exports: $Exports<'react-router-bootstrap/lib/LinkContainer'>
 }
 declare module 'react-router-bootstrap/lib/ReactRouterBootstrap.js' {
-  declare module.exports: $Exports<
-    'react-router-bootstrap/lib/ReactRouterBootstrap'
-  >
+  declare module.exports: $Exports<'react-router-bootstrap/lib/ReactRouterBootstrap'>
 }
 declare module 'react-router-bootstrap/lib/ReactRouterBootstrap.min.js' {
-  declare module.exports: $Exports<
-    'react-router-bootstrap/lib/ReactRouterBootstrap.min'
-  >
+  declare module.exports: $Exports<'react-router-bootstrap/lib/ReactRouterBootstrap.min'>
 }

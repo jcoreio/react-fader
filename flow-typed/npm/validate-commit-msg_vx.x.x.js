@@ -14,7 +14,7 @@
  */
 
 declare module 'validate-commit-msg' {
-  declare module.exports: any;
+  declare module.exports: any
 }
 
 /**
@@ -23,37 +23,37 @@ declare module 'validate-commit-msg' {
  * needed.
  */
 declare module 'validate-commit-msg/lib/cli' {
-  declare module.exports: any;
+  declare module.exports: any
 }
 
 declare module 'validate-commit-msg/lib/config' {
-  declare module.exports: any;
+  declare module.exports: any
 }
 
 declare module 'validate-commit-msg/lib/getGitFolder' {
-  declare module.exports: any;
+  declare module.exports: any
 }
 
 declare module 'validate-commit-msg/lib/validateMessage' {
-  declare module.exports: any;
+  declare module.exports: any
 }
 
 // Filename aliases
 declare module 'validate-commit-msg/index' {
-  declare module.exports: $Exports<'validate-commit-msg'>;
+  declare module.exports: $Exports<'validate-commit-msg'>
 }
 declare module 'validate-commit-msg/index.js' {
-  declare module.exports: $Exports<'validate-commit-msg'>;
+  declare module.exports: $Exports<'validate-commit-msg'>
 }
 declare module 'validate-commit-msg/lib/cli.js' {
-  declare module.exports: $Exports<'validate-commit-msg/lib/cli'>;
+  declare module.exports: $Exports<'validate-commit-msg/lib/cli'>
 }
 declare module 'validate-commit-msg/lib/config.js' {
-  declare module.exports: $Exports<'validate-commit-msg/lib/config'>;
+  declare module.exports: $Exports<'validate-commit-msg/lib/config'>
 }
 declare module 'validate-commit-msg/lib/getGitFolder.js' {
-  declare module.exports: $Exports<'validate-commit-msg/lib/getGitFolder'>;
+  declare module.exports: $Exports<'validate-commit-msg/lib/getGitFolder'>
 }
 declare module 'validate-commit-msg/lib/validateMessage.js' {
-  declare module.exports: $Exports<'validate-commit-msg/lib/validateMessage'>;
+  declare module.exports: $Exports<'validate-commit-msg/lib/validateMessage'>
 }
