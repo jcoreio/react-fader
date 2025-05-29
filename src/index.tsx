@@ -13,11 +13,15 @@ export type DefaultProps = {
   prefixer: Prefixer
   style: any
   shouldTransition: (oldChildren?: any, newChildren?: any) => boolean
+  measureHeight: (el: HTMLElement) => number
+  measureWidth: (el: HTMLElement) => number
 }
 
 export type Props = {
   animateHeight?: boolean | null | undefined
   animateWidth?: boolean | null | undefined
+  measureHeight?: (el: HTMLElement) => number
+  measureWidth?: (el: HTMLElement) => number
   innerRef?: (
     c?: React.ElementRef<'div'> | null | undefined
   ) => any | null | undefined
@@ -41,6 +45,8 @@ export type Props = {
 export type DefaultedProps = {
   animateHeight?: boolean | null | undefined
   animateWidth?: boolean | null | undefined
+  measureHeight: (el: HTMLElement) => number
+  measureWidth: (el: HTMLElement) => number
   innerRef?: (c?: React.ElementRef<'div'> | null | undefined) => any
   shouldTransition: (oldChildren?: any, newChildren?: any) => boolean
   children?: React.ReactNode
@@ -65,6 +71,8 @@ const defaultProps: DefaultProps = {
   sizeTransitionTimingFunction: 'ease',
   prefixer: new Prefixer(),
   style: {},
+  measureHeight: (el: HTMLElement) => el.clientHeight,
+  measureWidth: (el: HTMLElement) => el.clientWidth,
 
   shouldTransition(oldChildren: any, newChildren: any): boolean {
     if (oldChildren === newChildren) return false
@@ -190,6 +198,8 @@ export default class Fader extends React.Component<Props, State> {
     const {
       animateHeight,
       animateWidth,
+      measureHeight,
+      measureWidth,
       shouldTransition: _shouldTransition,
       fadeOutTransitionDuration,
       fadeInTransitionDuration,
@@ -216,11 +226,11 @@ export default class Fader extends React.Component<Props, State> {
       )
 
       if (animateHeight && height === undefined && this.wrappedChildrenRef) {
-        newState.height = this.wrappedChildrenRef.clientHeight
+        newState.height = measureHeight(this.wrappedChildrenRef)
       }
 
       if (animateWidth && width === undefined && this.wrappedChildrenRef) {
-        newState.width = this.wrappedChildrenRef.clientWidth
+        newState.width = measureWidth(this.wrappedChildrenRef)
       }
 
       this.setState((state) => ({ ...state, ...newState }))
@@ -249,7 +259,7 @@ export default class Fader extends React.Component<Props, State> {
         )
         if (animateHeight) {
           if (this.wrappedChildrenRef) {
-            newState.height = this.wrappedChildrenRef.clientHeight
+            newState.height = measureHeight(this.wrappedChildrenRef)
           }
           this.setTimeout(
             'height',
@@ -259,7 +269,7 @@ export default class Fader extends React.Component<Props, State> {
         }
         if (animateWidth) {
           if (this.wrappedChildrenRef) {
-            newState.width = this.wrappedChildrenRef.clientWidth
+            newState.width = measureWidth(this.wrappedChildrenRef)
           }
           this.setTimeout(
             'width',
@@ -284,7 +294,7 @@ export default class Fader extends React.Component<Props, State> {
     }
   }
 
-  onTransitionEnd = (e?: Event) => {
+  onTransitionEnd = () => {
     const { shouldTransition, fadeOutTransitionDuration } =
       this.getDefaultedProps()
     const { transitionState } = this.state
@@ -314,7 +324,7 @@ export default class Fader extends React.Component<Props, State> {
       }
     }
   }
-  onSizeTransitionEnd = (e?: Event) => {
+  onSizeTransitionEnd = () => {
     this.setState({ transitioningSize: false })
   }
 
