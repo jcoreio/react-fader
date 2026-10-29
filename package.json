@@ -37,6 +37,7 @@
     "@jcoreio/toolchain-flow": "3.4.0",
     "@jcoreio/toolchain-mocha": "3.4.0",
     "@jcoreio/toolchain-react": "3.4.0",
+    "@jcoreio/toolchain-semantic-release": "^3.4.0",
     "@jcoreio/toolchain-typescript": "3.4.0",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
@@ -88,7 +89,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.18.6",
-    "@jcoreio/toolchain-semantic-release": "^3.4.0",
     "inline-style-prefixer": "^3.0.6",
     "prop-types": "^15.6.0",
     "react-transition-context": "^5.1.2"
